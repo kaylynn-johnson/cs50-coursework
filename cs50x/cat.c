@@ -3,12 +3,13 @@
 
 int main(void)
 {
-    int n = -1;
+    int n;
 
-    while (n < 0)
+    do
     {
         n = get_int("What's n? ");
     }
+    while (n < 0);
 
     for (int i = 0; i < n; i++)
     {
