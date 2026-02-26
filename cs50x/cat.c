@@ -1,15 +1,20 @@
 #include <stdio.h>
 #include <cs50.h>
 
-void meow(void)
-{
-    printf("meow\n");
-}
+//Prototype
+void meow(int n);
 
 int main(void)
 {
-    for (int i = 0; i < 3; i++)
+    int n = get_int("What's n? ");
+    meow(n);
+}
+
+
+void meow(int n)
+{
+    for (int i = 0; i < n; i++)
     {
-        meow();
+        printf("meow\n");
     }
 }
