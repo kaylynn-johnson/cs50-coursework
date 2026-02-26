@@ -1,8 +1,10 @@
 #include <stdio.h>
+#include <cs50.h>
 
 int main(void)
 {
-    for (int i = 0; i < 3; i++)
+    int n = get_int("WHat's n? ");
+    for (int i = 0; i < n; i++)
     {
         printf("meow\n");
     }
