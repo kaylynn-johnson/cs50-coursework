@@ -1,18 +1,15 @@
 #include <stdio.h>
 #include <cs50.h>
 
+void meow(void)
+{
+    printf("meow\n");
+}
+
 int main(void)
 {
-    int n;
-
-    do
+    for (int i = 0; i < 3; i++)
     {
-        n = get_int("What's n? ");
-    }
-    while (n < 0);
-
-    for (int i = 0; i < n; i++)
-    {
-        printf("meow\n");
+        meow();
     }
 }
