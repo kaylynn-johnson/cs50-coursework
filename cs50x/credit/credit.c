@@ -60,7 +60,11 @@ string calculate_checksum(num)
 {
     int num_len = strlen(num);
 
+    int part1_sum = 0;
     for (int i = num_len - 2; i > -1; i -= 2) {
-        
+        part1_sum += (num[i] * 2);
     }
+
+    int part2_sum = 0;
+    for (int j = )
 }
