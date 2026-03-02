@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include <string.h>
 
+string check_output(num);
+
+
 int main(void)
 {
     //get input from user
@@ -9,10 +12,20 @@ int main(void)
 
     // check output from user
     // call the function
+    string card_type = check_output(credit_num);
+
+    // just report invalid if that is the return on check output
+    if (card_type == "INVALID") {
+        printf("%s\n", card_type);
+        return;
+    }
+
+    // calculate checksum
+    // call the function
 }
 
 
-str check_output(num)
+string check_output(num)
 {
     int num_len = strlen(num);
 
@@ -39,5 +52,15 @@ str check_output(num)
     else {
         // Is an invalid card number
         return "INVALID";
+    }
+}
+
+
+string calculate_checksum(num)
+{
+    int num_len = strlen(num);
+
+    for (int i = num_len - 2; i > -1; i -= 2) {
+        
     }
 }
