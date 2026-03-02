@@ -13,7 +13,7 @@ int main(void)
     // check output from user
     // call the function
     string card_type = check_output(credit_num);
-    // printf("%s\n", card_type);
+    printf("%s\n", card_type);
 
     // just report invalid if that is the return on check output
     if (strcmp(card_type, "INVALID") == 0)
