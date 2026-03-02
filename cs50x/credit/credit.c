@@ -37,7 +37,7 @@ int main(void)
 
 string check_output(long num)
 {
-    int num_len = strlen("%s", num);
+    int num_len = strlen(sprintf());
 
     if (num_len == 13 || num_len == 14) && (num[0] == 4) {
         // Is a possible VISA card number
