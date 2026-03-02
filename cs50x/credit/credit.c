@@ -1,5 +1,6 @@
 #include <cs50.h>
 #include <stdio.h>
+#include <string.h>
 
 int main(void)
 {
@@ -13,5 +14,9 @@ int main(void)
 
 str check_output(num)
 {
-    
+    int num_len = strlen(num);
+
+    if (num_len == 13 || num_len == 14) && () {
+        // Is a possible VISA card number
+    }
 }
