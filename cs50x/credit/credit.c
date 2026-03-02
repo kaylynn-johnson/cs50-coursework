@@ -3,7 +3,7 @@
 #include <string.h>
 
 string check_output(long num);
-string calculate_checksum(long num_input);
+string calculate_checksum(long num);
 
 int main(void)
 {
@@ -17,27 +17,27 @@ int main(void)
     // just report invalid if that is the return on check output
     if (strcmp(card_type, "INVALID") == 0) {
         printf("%s\n", card_type);
-        exit;
+        return 0;
     }
 
     // calculate checksum
     // call the function
     string valid_checksum = calculate_checksum(credit_num);
 
-    if (valid_checksum == "VALID") {
+    if (strcmp(valid_checksum, "VALID") == 0) {
         printf("%s\n", card_type);
-        return;
+        return 0;
     }
     else {
         printf("%s\n", valid_checksum);
-        return;
+        return 0;
     }
 }
 
 
-string check_output(num_input)
+string check_output(long num)
 {
-    int num_len = strlen(num);
+    int num_len = strlen("%s", num);
 
     if (num_len == 13 || num_len == 14) && (num[0] == 4) {
         // Is a possible VISA card number
@@ -66,7 +66,7 @@ string check_output(num_input)
 }
 
 
-string calculate_checksum(num)
+string calculate_checksum(long num)
 {
     int num_len = strlen(num);
 
