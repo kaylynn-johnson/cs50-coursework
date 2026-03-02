@@ -24,6 +24,7 @@ int main(void)
     // calculate checksum
     // call the function
     string valid_checksum = calculate_checksum(credit_num);
+    printf("%s\n", valid_checksum);
 
     if (strcmp(valid_checksum, "VALID") == 0) {
         printf("%s\n", card_type);
