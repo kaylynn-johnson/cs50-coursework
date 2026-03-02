@@ -13,7 +13,7 @@ int main(void)
     // check output from user
     // call the function
     string card_type = check_output(credit_num);
-    printf("%s\n", card_type);
+    //printf("%s\n", card_type);
 
     // just report invalid if that is the return on check output
     if (strcmp(card_type, "INVALID") == 0) {
@@ -24,7 +24,7 @@ int main(void)
     // calculate checksum
     // call the function
     string valid_checksum = calculate_checksum(credit_num);
-    printf("%s\n", valid_checksum);
+    //printf("%s\n", valid_checksum);
 
     if (strcmp(valid_checksum, "VALID") == 0) {
         printf("%s\n", card_type);
@@ -41,10 +41,10 @@ string check_output(long num)
 {
     char str_num[20];
     sprintf(str_num, "%ld", num);
-    printf("%s\n", str_num);
+    //printf("%s\n", str_num);
     int num_len = strlen(str_num);
-    printf("%i\n", num_len);
-    printf("%c\n", str_num[0]);
+    //printf("%i\n", num_len);
+    //printf("%c\n", str_num[0]);
 
     if ((num_len == 13 || num_len == 14) && (str_num[0] == '4')) {
         // Is a possible VISA card number
