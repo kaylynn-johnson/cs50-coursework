@@ -48,7 +48,7 @@ string check_output(long num)
     // printf("%i\n", num_len);
     // printf("%c\n", str_num[0]);
 
-    if ((num_len == 13 || num_len == 14) && (str_num[0] == '4'))
+    if ((num_len == 13) && (str_num[0] == '4'))
     {
         // Is a possible VISA card number
         return "VISA";
@@ -57,11 +57,6 @@ string check_output(long num)
     {
         // Is a possible AMEX card number
         return "AMEX";
-    }
-    else if (num_len == 15 && (str_num[0] == '4'))
-    {
-        // Is a possible VISA card number
-        return "VISA";
     }
     else if ((num_len == 16) && (str_num[0] == '5' && (str_num[1] > '0' && str_num[1] < '6')))
     {
