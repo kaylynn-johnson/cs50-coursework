@@ -46,7 +46,7 @@ string check_output(long num)
         // Is a possible VISA card number
         return "VISA";
     }
-    else if (num_len == 15 && (str_num[0:1] == 34 || str_num[0:1] == 37)) {
+    else if (num_len == 15 && (str_num[0] == 3 && (str_num[1] == 4 || str_num[1] == 37))) {
         // Is a possible AMEX card number
         return "AMEX";
     }
@@ -54,7 +54,7 @@ string check_output(long num)
         // Is a possible VISA card number
         return "VISA";
     }
-    else if ((num_len == 16) && (str_num[0:1] > 50 & str_num[0:1] < 56)) {
+    else if ((num_len == 16) && (str_num[0] == 5 && (str_num[1] > 0 && str_num[1] < 6))) {
         // Is a possible MASTERCARD card number
         return "MASTERCARD";
     }
@@ -71,21 +71,27 @@ string check_output(long num)
 
 string calculate_checksum(long num)
 {
-    int num_len = strlen(num);
+    char str_num[20];
+    sprintf(str_num, "%ld", num);
+    //printf(str_num);
+    int num_len = strlen(str_num);
 
     int part1_sum = 0;
     for (int i = num_len - 2; i > -1; i -= 2) {
-        part1_sum += (num[i] * 2);
+        part1_sum += (str_num[i] * 2);
     }
 
     int part2_sum = 0;
-    for (int j = 0; j < strlen(string part1sum = part1_sum); j++) {
-        part2_sum += part1sum[j];
+    char str_part1[5];
+    sprintf(str_part1, "%i", part1_sum);
+    int part1_len = strlen(str_part1);
+    for (int j = 0; j < part1_len; j++) {
+        part2_sum += str_part1[j];
     }
 
     int part3_sum = part2_sum;
     for (int k = 0; k < num_len; k += 2) {
-        part3_sum += num[k];
+        part3_sum += str_num[k];
     }
 
     if (part3_sum % 10) {
