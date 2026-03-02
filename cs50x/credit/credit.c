@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 
-string check_output(num);
-string calculate_checksum(num);
+string check_output(num_input);
+string calculate_checksum(num_input);
 
 int main(void)
 {
@@ -35,7 +35,7 @@ int main(void)
 }
 
 
-string check_output(num)
+string check_output(num_input)
 {
     int num_len = strlen(num);
 
