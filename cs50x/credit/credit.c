@@ -13,6 +13,7 @@ int main(void)
     // check output from user
     // call the function
     string card_type = check_output(credit_num);
+    printf("%s\n", card_type);
 
     // just report invalid if that is the return on check output
     if (strcmp(card_type, "INVALID") == 0) {
@@ -39,26 +40,28 @@ string check_output(long num)
 {
     char str_num[20];
     sprintf(str_num, "%ld", num);
-    //printf(str_num);
+    printf("%s\n", str_num);
     int num_len = strlen(str_num);
+    printf("%i\n", num_len);
+    printf("%c\n", str_num[0]);
 
-    if ((num_len == 13 || num_len == 14) && (str_num[0] == 4)) {
+    if ((num_len == 13 || num_len == 14) && (str_num[0] == '4')) {
         // Is a possible VISA card number
         return "VISA";
     }
-    else if (num_len == 15 && (str_num[0] == 3 && (str_num[1] == 4 || str_num[1] == 37))) {
+    else if (num_len == 15 && (str_num[0] == '3' && (str_num[1] == '4' || str_num[1] == '7'))) {
         // Is a possible AMEX card number
         return "AMEX";
     }
-    else if (num_len == 15 && (str_num[0] == 4)) {
+    else if (num_len == 15 && (str_num[0] == '4')) {
         // Is a possible VISA card number
         return "VISA";
     }
-    else if ((num_len == 16) && (str_num[0] == 5 && (str_num[1] > 0 && str_num[1] < 6))) {
+    else if ((num_len == 16) && (str_num[0] == '5' && (str_num[1] > '0' && str_num[1] < '6'))) {
         // Is a possible MASTERCARD card number
         return "MASTERCARD";
     }
-    else if ((num_len == 16) && (str_num[0] == 4)) {
+    else if ((num_len == 16) && (str_num[0] == '4')) {
         // Is a possible VISA card number
         return "VISA";
     }
