@@ -87,6 +87,7 @@ string calculate_checksum(long num)
     {
         part1_sum += (str_num[i] * 2);
     }
+    printf("%i\n", part1_sum);
 
     int part2_sum = 0;
     char str_part1[5];
@@ -96,12 +97,14 @@ string calculate_checksum(long num)
     {
         part2_sum += str_part1[j];
     }
+    printf("%i\n", part2_sum);
 
     int part3_sum = part2_sum;
     for (int k = 0; k < num_len; k += 2)
     {
         part3_sum += str_num[k];
     }
+    printf("%i\n", part3_sum);
 
     if (part3_sum % 10)
     {
