@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 
-string check_output(num_input);
-string calculate_checksum(num_input);
+string check_output(long num);
+string calculate_checksum(long num_input);
 
 int main(void)
 {
