@@ -84,10 +84,11 @@ string calculate_checksum(long num)
 
     int part1_sum = 0;
     int inter_digit;
-    printf("%i\n", (str_num[0]));
+    printf("%i\n", (str_num[0] - '0'));
     for (int i = num_len - 2; i > -1; i -= 2)
     {
-        part1_sum += (str_num[i] * 2);
+        inter_digit = str_num[i] - '0';
+        part1_sum += (inter_digit * 2);
     }
     printf("%i\n", part1_sum);
 
@@ -97,14 +98,16 @@ string calculate_checksum(long num)
     int part1_len = strlen(str_part1);
     for (int j = 0; j < part1_len; j++)
     {
-        part2_sum += str_part1[j];
+        inter_digit = str_part1[j] - '0';
+        part2_sum += inter_digit;
     }
     printf("%i\n", part2_sum);
 
     int part3_sum = part2_sum;
     for (int k = 0; k < num_len; k += 2)
     {
-        part3_sum += str_num[k];
+        inter_digit = str_num[k] - '0';
+        part3_sum += inter_digit;
     }
     printf("%i\n", part3_sum);
 
