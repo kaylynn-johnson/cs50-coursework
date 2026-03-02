@@ -3,7 +3,7 @@
 #include <string.h>
 
 string check_output(num);
-
+string calculate_checksum(num);
 
 int main(void)
 {
@@ -22,6 +22,16 @@ int main(void)
 
     // calculate checksum
     // call the function
+    string valid_checksum = calculate_checksum(credit_num);
+
+    if (valid_checksum == "VALID") {
+        printf("%s\n", card_type);
+        return;
+    }
+    else {
+        printf("%s\n", valid_checksum);
+        return;
+    }
 }
 
 
@@ -66,5 +76,19 @@ string calculate_checksum(num)
     }
 
     int part2_sum = 0;
-    for (int j = )
+    for (int j = 0; j < strlen(string part1sum = part1_sum); j++) {
+        part2_sum += part1sum[j];
+    }
+
+    int part3_sum = part2_sum;
+    for (int k = 0; k < num_len; k += 2) {
+        part3_sum += num[k];
+    }
+
+    if (part3_sum % 10) {
+        return "VALID";
+    }
+    else {
+        return "INVALID";
+    }
 }
