@@ -37,25 +37,28 @@ int main(void)
 
 string check_output(long num)
 {
-    int num_len = strlen(sprintf());
+    char str_num[20];
+    sprintf(str_num, "%ld", num);
+    //printf(str_num);
+    int num_len = strlen(str_num);
 
-    if (num_len == 13 || num_len == 14) && (num[0] == 4) {
+    if ((num_len == 13 || num_len == 14) && (str_num[0] == 4)) {
         // Is a possible VISA card number
         return "VISA";
     }
-    elif (num_len == 15 && (num[0:1] == 34 || num[0:1] == 37)) {
+    else if (num_len == 15 && (str_num[0:1] == 34 || str_num[0:1] == 37)) {
         // Is a possible AMEX card number
         return "AMEX";
     }
-    elif (num_len == 15 && (num[0] == 4)) {
+    else if (num_len == 15 && (str_num[0] == 4)) {
         // Is a possible VISA card number
         return "VISA";
     }
-    elif ((num_len == 16) && (num[0:1] > 50 & num[0:1] < 56)) {
+    else if ((num_len == 16) && (str_num[0:1] > 50 & str_num[0:1] < 56)) {
         // Is a possible MASTERCARD card number
         return "MASTERCARD";
     }
-    elif ((num_len == 16) && (num[0] == 4)) {
+    else if ((num_len == 16) && (str_num[0] == 4)) {
         // Is a possible VISA card number
         return "VISA";
     }
