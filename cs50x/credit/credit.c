@@ -79,10 +79,12 @@ string calculate_checksum(long num)
 {
     char str_num[20];
     sprintf(str_num, "%ld", num);
-    // printf(str_num);
+    printf("%s\n", str_num);
     int num_len = strlen(str_num);
 
     int part1_sum = 0;
+    int inter_digit;
+    printf("%i\n", (str_num[0]));
     for (int i = num_len - 2; i > -1; i -= 2)
     {
         part1_sum += (str_num[i] * 2);
