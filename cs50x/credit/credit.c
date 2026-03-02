@@ -104,7 +104,7 @@ string calculate_checksum(long num)
     printf("%i\n", part2_sum);
 
     int part3_sum = part2_sum;
-    for (int k = 0; k < num_len; k += 2)
+    for (int k = num_len - 1; k > -1; k -= 2)
     {
         inter_digit = str_num[k] - '0';
         part3_sum += inter_digit;
