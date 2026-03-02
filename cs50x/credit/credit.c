@@ -15,9 +15,9 @@ int main(void)
     string card_type = check_output(credit_num);
 
     // just report invalid if that is the return on check output
-    if (card_type == 'INVALID') {
+    if (strcmp(card_type, "INVALID") == 0) {
         printf("%s\n", card_type);
-        return;
+        exit;
     }
 
     // calculate checksum
