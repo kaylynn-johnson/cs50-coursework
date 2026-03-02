@@ -110,8 +110,9 @@ string calculate_checksum(long num)
         part3_sum += inter_digit;
     }
     printf("%i\n", part3_sum);
+    printf("%i\n", part3_sum % 10);
 
-    if (part3_sum % 10)
+    if ((part3_sum % 10) == 0)
     {
         return "VALID";
     }
