@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 
-string check_output(char str_num, int num_len);
-string calculate_checksum(char str_num, int num_len);
+string check_output(string str_num, int num_len);
+string calculate_checksum(string str_num, int num_len);
 
 int main(void)
 {
@@ -40,7 +40,7 @@ int main(void)
     }
 }
 
-string check_output(char str_num, int num_len)
+string check_output(string str_num, int num_len)
 {
     if ((num_len == 13) && (str_num[0] == '4'))
     {
@@ -69,7 +69,7 @@ string check_output(char str_num, int num_len)
     }
 }
 
-string calculate_checksum(char str_num, int num_len)
+string calculate_checksum(string str_num, int num_len)
 {
     int part1_sum = 0;
     int inter_digit;
