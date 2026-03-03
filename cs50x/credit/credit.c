@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-string check_output(string str_num, int num_len);
+string determine_card_type(string str_num, int num_len);
 string determine_valid_checksum(string str_num, int num_len);
 
 int main(void)
@@ -16,7 +16,7 @@ int main(void)
     int num_len = strlen(str_num);
 
     // Check output from user
-    string card_type = check_output(str_num, num_len);
+    string card_type = determine_card_type(str_num, num_len);
 
     // Report INVALID if card_type returns incorrect length/initial digits
     if (strcmp(card_type, "INVALID") == 0)
@@ -40,7 +40,7 @@ int main(void)
     }
 }
 
-string check_output(string str_num, int num_len)
+string determine_card_type(string str_num, int num_len)
 {
     if ((num_len == 13) && (str_num[0] == '4'))
     {
