@@ -4,5 +4,13 @@
 
 int main(void)
 {
-    string phrase = get_string(")
+    string phrase = get_string("Text: ");
+
+    printf("Reverse: ");
+    
+    for (int i = strlen(phrase); i > -1; i--)
+    {
+        printf("%c", phrase[i]);
+    }
+    printf("\n");
 }
