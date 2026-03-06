@@ -20,8 +20,8 @@ int main(int argc, string argv[])
     }
 
     // check for valid key
-    int good = check_key(argv[1]);
-    if (!good)
+    int not_good = check_key(argv[1]);
+    if (not_good)
     {
         return 1;
     }
@@ -32,9 +32,8 @@ int main(int argc, string argv[])
     // encrypt the text
     printf("ciphertext: ");
     encrypt_text(argv[1], plaintext);
+    printf("\n");
 
-    // print out "ciphertext: " and then the string from above
-    //printf("ciphertext: %s\n", complete_ciphertext);
     return 0;
 }
 
@@ -72,17 +71,13 @@ int check_key(string key)
 
 void encrypt_text(string key, string plaintext)
 {
-    // declare string of same length as plaintext
-
-
     for (int i = 0, n = strlen(plaintext); i < n; i++)
     {
         // check if uppercase letter
         if (isalpha(plaintext[i]) && isupper(plaintext[i]))
         {
             // find location in the alphabet
-            int letter_location = plaintext[i] - UPPER;
-            printf("%c", toupper(key[letter_location]));
+            printf("%c", toupper(key[plaintext[i] - UPPER]));
         }
         else if (isalpha(plaintext[i]) && islower(plaintext[i]))
         {
