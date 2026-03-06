@@ -5,6 +5,8 @@
 
 #define ALPHABET_SIZE 26
 
+int check_key(string key);
+
 int main(int argc, string argv[])
 {
     // check for valid number of arguments
@@ -15,35 +17,10 @@ int main(int argc, string argv[])
     }
 
     // check for valid key
-    // length must be 26 (magic number)
-    if (strlen(argv[1]) != ALPHABET_SIZE)
+    int good = check_key(argv[1]);
+    if (!good)
     {
-        printf("Key must contain %i characters.\n", ALPHABET_SIZE);
         return 1;
-    }
-    // key should be alphabetical
-    for (int k = 0; k < ALPHABET_SIZE; k++)
-    {
-        if (isalpha(argv[1][k]) == 0)
-        {
-            printf("Key must be alphabetical.\n");
-            return 1;
-        }
-    }
-
-    // each letter should only be used once (nested for loop)
-    for (int i = 0; i < ALPHABET_SIZE; i++)
-    {
-        for (int j = 0; j < ALPHABET_SIZE; j++)
-        {
-            //printf("%i, %i: %c, %c\n", i, j, argv[i], argv[j]);
-            if (argv[1][i] == argv[1][j] && i != j)
-            {
-                // found a duplicate
-                printf("Key must contain only one instance of each character.\n");
-                return 1;
-            }
-        }
     }
 
     // ask for plaintext input from user
@@ -55,4 +32,36 @@ int main(int argc, string argv[])
     // ensure to preserve case and don't change punctuation
 
     // print out "ciphertext: " and then the string from above
+}
+
+int check_key(string key)
+{
+    // length must be ALPHABET_SIZE
+    if (strlen(key) != ALPHABET_SIZE)
+    {
+        printf("Key must contain %i characters.\n", ALPHABET_SIZE);
+        return 1;
+    }
+
+    for (int i = 0; i < ALPHABET_SIZE; i++)
+    {
+        if (isalpha(key[i]) == 0) // key should be alphabetical
+        {
+            printf("Key must be alphabetical.\n");
+            return 1;
+        }
+
+        for (int j = 0; j < ALPHABET_SIZE; j++)
+        {
+            if (key[i] == key[j] && i != j)
+            {
+                // found a duplicate letter
+                printf("Key must contain only one instance of each character.\n");
+                return 1;
+            }
+        }
+    }
+
+    // output is good
+    return 0;
 }
