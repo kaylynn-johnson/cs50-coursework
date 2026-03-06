@@ -14,12 +14,15 @@ int main(void)
 
     // Calculate number of words in the text (1)
     int num_words = calculate_num_words(text);
+    printf("Number of words: %i\n", num_words);
 
     // Calculate number of letters in the text (2)
     int num_letters = calculate_num_letters(text);
+    printf("Number of letters: %i\n", num_letters);
 
     // Calculate number of sentences in the text (3)
     int num_sentences = calculate_num_sentences(text);
+    printf("Number of sentences: %i\n", num_sentences);
 
     // Calculate L = (2) / (1) * 100
     float L = (num_letters / num_words) * 100.0;
@@ -49,7 +52,7 @@ int main(void)
 int calculate_num_words(string text)
 {
     // increment counter when see a " " (space) or ASCII 32
-    int num_words = 0;
+    int num_words = 1;  // starting at 1 to capture last word that won't have a space
     for (int i = 0, n = strlen(text); i < n; i++)
     {
         if (text[i] == 32) {
@@ -66,7 +69,7 @@ int calculate_num_letters(string text)
     int num_letters = 0;
     for (int i = 0, n = strlen(text); i < n; i++)
     {
-        if (tolower(text[i]) >= 97 && tolower(text[i]) <- 122)
+        if (tolower(text[i]) >= 97 && tolower(text[i]) <= 122)
         {
             // This is a letter
             num_letters++;
