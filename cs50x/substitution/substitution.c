@@ -8,6 +8,7 @@
 #define LOWER 97
 
 int check_key(string key);
+string encrypt_text(string key, string plaintext);
 
 int main(int argc, string argv[])
 {
@@ -32,7 +33,8 @@ int main(int argc, string argv[])
     string ciphertext = encrypt_text(argv[1], plaintext);
 
     // print out "ciphertext: " and then the string from above
-    printf("ciphertext: %s\n")
+    printf("ciphertext: %s\n", ciphertext);
+    return 0;
 }
 
 int check_key(string key)
@@ -70,7 +72,7 @@ int check_key(string key)
 string encrypt_text(string key, string plaintext)
 {
     // declare string of same length as plaintext
-    string ciphertext[strlen(plaintext)];
+    char ciphertext[strlen(plaintext)];
 
     for (int i = 0, n = strlen(plaintext); i < n; i++)
     {
@@ -78,7 +80,8 @@ string encrypt_text(string key, string plaintext)
         if (isalpha(plaintext[i]) && isupper(plaintext[i]))
         {
             // find location in the alphabet
-            ciphertext[i] = toupper(key[plaintext[i] - UPPER]);
+            int letter_location = plaintext[i] - UPPER;
+            ciphertext[i] = toupper(key[letter_location]);
         }
         else if (isalpha(plaintext[i]) && islower(plaintext[i]))
         {
