@@ -36,7 +36,8 @@ int main(int argc, string argv[])
     {
         for (int j = 0; j < ALPHABET_SIZE; j++)
         {
-            if (argv[i] == argv[j] && i != j)
+            //printf("%i, %i: %c, %c\n", i, j, argv[i], argv[j]);
+            if (argv[1][i] == argv[1][j] && i != j)
             {
                 // found a duplicate
                 printf("Key must contain only one instance of each character.\n");
