@@ -72,7 +72,7 @@ int check_key(string key)
 string encrypt_text(string key, string plaintext)
 {
     // declare string of same length as plaintext
-    char ciphertext[strlen(plaintext)];
+    string ciphertext[strlen(plaintext)];
 
     for (int i = 0, n = strlen(plaintext); i < n; i++)
     {
