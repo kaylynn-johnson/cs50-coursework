@@ -16,4 +16,6 @@ int main(void)
     // Run the equation
 
     // Print out the appropriate grade level
+
+    // How would we handle the last bit that is less than 100 words?
 }
