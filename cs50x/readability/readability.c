@@ -4,6 +4,11 @@
 #include <stdio.h>
 #include <string.h>
 
+#define SPACE 32
+#define PERIOD 46
+#define EXCLAMATION 33
+#define QUESTION 63
+
 int calculate_num_words(string text);
 int calculate_num_letters(string text);
 int calculate_num_sentences(string text);
@@ -52,7 +57,7 @@ int calculate_num_words(string text)
     int num_words = 1; // starting at 1 to capture last word that won't have a space
     for (int i = 0, n = strlen(text); i < n; i++)
     {
-        if (text[i] == 32)
+        if (text[i] == SPACE)
         {
             num_words++;
         }
@@ -63,7 +68,7 @@ int calculate_num_words(string text)
 
 int calculate_num_letters(string text)
 {
-    // increment counter when see a letter (between 97-122) after lowering text
+    // increment counter if character is alphabetical
     int num_letters = 0;
     for (int i = 0, n = strlen(text); i < n; i++)
     {
@@ -83,7 +88,7 @@ int calculate_num_sentences(string text)
     int num_sentences = 0;
     for (int i = 0, n = strlen(text); i < n; i++)
     {
-        if (text[i] == 33 || text[i] == 46 || text[i] == 63)
+        if (text[i] == PERIOD || text[i] == EXCLAMATION || text[i] == QUESTION)
         {
             // There is an end of sentence punctuation
             num_sentences++;
