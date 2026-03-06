@@ -25,10 +25,12 @@ int main(void)
     printf("Number of sentences: %i\n", num_sentences);
 
     // Calculate L = (2) / (1) * 100
-    float L = (num_letters / num_words) * 100.0;
+    float L = (num_letters * 100.0) / num_words;
+    printf("L: %f\n", L);
 
     // Calculate S = (3) / (1) * 100
-    float S = (num_sentences / num_words) * 100.0;
+    float S = (num_sentences * 100.0) / num_words;
+    printf("S: %f\n", S);
 
     // Run the equation (0.0588 * L) - (0.296 * S) - 15.8
     int grade_level = (0.0588 * L) - (0.296 * S) - 15.8;
