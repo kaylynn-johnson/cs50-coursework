@@ -15,23 +15,18 @@ int main(void)
 
     // Calculate number of words in the text (1)
     int num_words = calculate_num_words(text);
-    //printf("Number of words: %i\n", num_words);
 
     // Calculate number of letters in the text (2)
     int num_letters = calculate_num_letters(text);
-    //printf("Number of letters: %i\n", num_letters);
 
     // Calculate number of sentences in the text (3)
     int num_sentences = calculate_num_sentences(text);
-    //printf("Number of sentences: %i\n", num_sentences);
 
     // Calculate L = (2) / (1) * 100
     float L = (num_letters * 100.0) / num_words;
-    //printf("L: %f\n", L);
 
     // Calculate S = (3) / (1) * 100
     float S = (num_sentences * 100.0) / num_words;
-    //printf("S: %f\n", S);
 
     // Run the equation (0.0588 * L) - (0.296 * S) - 15.8
     int grade_level = round((0.0588 * L) - (0.296 * S) - 15.8);
@@ -49,16 +44,16 @@ int main(void)
     {
         printf("Grade %i\n", grade_level);
     }
-
 }
 
 int calculate_num_words(string text)
 {
     // increment counter when see a " " (space) or ASCII 32
-    int num_words = 1;  // starting at 1 to capture last word that won't have a space
+    int num_words = 1; // starting at 1 to capture last word that won't have a space
     for (int i = 0, n = strlen(text); i < n; i++)
     {
-        if (text[i] == 32) {
+        if (text[i] == 32)
+        {
             num_words++;
         }
     }
