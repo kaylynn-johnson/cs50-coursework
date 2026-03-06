@@ -56,7 +56,7 @@ int check_key(string key)
 
         for (int j = 0; j < ALPHABET_SIZE; j++)
         {
-            if (key[i] == key[j] && i != j)
+            if (tolower(key[i]) == tolower(key[j]) && i != j)
             {
                 // found a duplicate letter
                 printf("Key must contain only one instance of each character.\n");
