@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 
+
 int main(void)
 {
     // Ask for text
@@ -18,16 +19,28 @@ int main(void)
     int num_sentences = calculate_num_sentences(text);
 
     // Calculate L = (2) / (1) * 100
-    float L = (num_letters / num_words) * 100.0
+    float L = (num_letters / num_words) * 100.0;
 
     // Calculate S = (3) / (1) * 100
-    flow
+    float S = (num_sentences / num_words) * 100.0;
 
     // Run the equation (0.0588 * L) - (0.296 * S) - 15.8
+    int grade_level = (0.0588 * L) - (0.296 * S) - 15.8;
 
     // Print out the appropriate grade level
+    if (grade_level < 0)
+    {
+        printf("Before Grade 1\n");
+    }
+    else if (grade_level >= 16)
+    {
+        printf("Grade 16+\n");
+    }
+    else
+    {
+        printf("Grade %i\n", grade_level);
+    }
 
-    // How would we handle the last bit that is less than 100 words?
 }
 
 int calculate_num_words(string text)
