@@ -8,7 +8,7 @@
 #define LOWER 97
 
 int check_key(string key);
-string encrypt_text(string key, string plaintext, char ciphertext);
+void encrypt_text(string key, string plaintext);
 
 int main(int argc, string argv[])
 {
@@ -30,11 +30,11 @@ int main(int argc, string argv[])
     string plaintext = get_string("plaintext: ");
 
     // encrypt the text
-    char ciphertext[strlen(plaintext)];
-    string complete_ciphertext = encrypt_text(argv[1], plaintext, ciphertext);
+    printf("ciphertext: ");
+    encrypt_text(argv[1], plaintext);
 
     // print out "ciphertext: " and then the string from above
-    printf("ciphertext: %s\n", complete_ciphertext);
+    //printf("ciphertext: %s\n", complete_ciphertext);
     return 0;
 }
 
@@ -70,7 +70,7 @@ int check_key(string key)
     return 0;
 }
 
-string encrypt_text(string key, string plaintext, char ciphertext)
+void encrypt_text(string key, string plaintext)
 {
     // declare string of same length as plaintext
 
@@ -82,19 +82,17 @@ string encrypt_text(string key, string plaintext, char ciphertext)
         {
             // find location in the alphabet
             int letter_location = plaintext[i] - UPPER;
-            ciphertext[i] = toupper(key[letter_location]);
+            printf("%c", toupper(key[letter_location]));
         }
         else if (isalpha(plaintext[i]) && islower(plaintext[i]))
         {
             // find location in the alphabet
-            ciphertext[i] = tolower(key[plaintext[i] - LOWER]);
+            printf("%c", tolower(key[plaintext[i] - LOWER]));
         }
         else
         {
             // not a letter so keep the same
-            ciphertext[i] = plaintext[i];
+            printf("%c", plaintext[i]);
         }
     }
-
-    return ciphertext;
 }
