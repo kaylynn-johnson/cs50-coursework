@@ -4,6 +4,8 @@
 #include <string.h>
 
 #define ALPHABET_SIZE 26
+#define UPPER 65
+#define LOWER 97
 
 int check_key(string key);
 
@@ -24,14 +26,13 @@ int main(int argc, string argv[])
     }
 
     // ask for plaintext input from user
+    string plaintext = get_string("plaintext: ");
 
     // encrypt the text
-    // declare string of same length as plaintext to add to in loop
-    // find number of letter in plaintext in alphabet (subtract 65 or 97)
-    // replace with new letter from key
-    // ensure to preserve case and don't change punctuation
+    string ciphertext = encrypt_text(argv[1], plaintext);
 
     // print out "ciphertext: " and then the string from above
+    printf("ciphertext: %s\n")
 }
 
 int check_key(string key)
@@ -64,4 +65,32 @@ int check_key(string key)
 
     // output is good
     return 0;
+}
+
+string encrypt_text(string key, string plaintext)
+{
+    // declare string of same length as plaintext
+    string ciphertext[strlen(plaintext)];
+
+    for (int i = 0, n = strlen(plaintext); i < n; i++)
+    {
+        // check if uppercase letter
+        if (isalpha(plaintext[i]) && isupper(plaintext[i]))
+        {
+            // find location in the alphabet
+            ciphertext[i] = toupper(key[plaintext[i] - UPPER]);
+        }
+        else if (isalpha(plaintext[i]) && islower(plaintext[i]))
+        {
+            // find location in the alphabet
+            ciphertext[i] = tolower(key[plaintext[i] - LOWER]);
+        }
+        else
+        {
+            // not a letter so keep the same
+            ciphertext[i] = plaintext[i];
+        }
+    }
+
+    return ciphertext;
 }
