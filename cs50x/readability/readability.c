@@ -1,5 +1,6 @@
 #include <cs50.h>
 #include <ctype.h>
+#include <math.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -33,7 +34,7 @@ int main(void)
     printf("S: %f\n", S);
 
     // Run the equation (0.0588 * L) - (0.296 * S) - 15.8
-    int grade_level = (0.0588 * L) - (0.296 * S) - 15.8;
+    int grade_level = round((0.0588 * L) - (0.296 * S) - 15.8);
 
     // Print out the appropriate grade level
     if (grade_level < 0)
