@@ -3,6 +3,9 @@
 #include <stdio.h>
 #include <string.h>
 
+int calculate_num_words(string text);
+int calculate_num_letters(string text);
+int calculate_num_sentences(string text);
 
 int main(void)
 {
@@ -50,7 +53,7 @@ int calculate_num_words(string text)
     for (int i = 0, n = strlen(text); i < n; i++)
     {
         if (text[i] == 32) {
-            num_words++
+            num_words++;
         }
     }
 
