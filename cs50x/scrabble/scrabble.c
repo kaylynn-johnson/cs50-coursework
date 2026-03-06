@@ -1,4 +1,5 @@
 #include <cs50.h>
+#include <ctype.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -40,7 +41,7 @@ int determine_word_score(string word)
     for (int i = 0, n = strlen(word); i < n; i++)
     {
         // Find scrablle score for letter and add to running sum
-        word_score += determine_letter_score(word[i]);
+        word_score += determine_letter_score(tolower(word[i]));
     }
 
     return word_score;
