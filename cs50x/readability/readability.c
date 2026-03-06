@@ -7,5 +7,5 @@ int main(void)
     // Ask for text
 
     // Outer for loop for the 100 word pieces
-    // Inner for loop
+    // Inner for loop for counting the 
 }
