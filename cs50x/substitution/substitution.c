@@ -22,11 +22,15 @@ int main(int argc, string argv[])
         return 1;
     }
     // key should be alphabetical
-    if (isalpha(argv[1]))
+    for (int k = 0; k < ALPHABET_SIZE; k++)
     {
-        printf("Key must be alphabetical.\n");
-        return 1;
+        if (isalpha(argv[1][k]) == 0)
+        {
+            printf("Key must be alphabetical.\n");
+            return 1;
+        }
     }
+
     // each letter should only be used once (nested for loop)
     for (int i = 0; i < ALPHABET_SIZE; i++)
     {
