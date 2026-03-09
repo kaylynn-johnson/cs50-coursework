@@ -213,7 +213,7 @@ void lock_pairs(void)
             if (locked[j][pairs[i].winner] && locked[pairs[i].loser][j])
             {
                 // you would be creating a cycle here
-                printf("Found a cycle between candidates %i, %i, and %i", j, pairs[i].winner, pairs[i].loser);
+                printf("Found a cycle between candidates %i, %i, and %i\n", j, pairs[i].winner, pairs[i].loser);
                 cycle = true;
                 break;
             }
