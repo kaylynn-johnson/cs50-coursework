@@ -254,33 +254,54 @@ void print_winner(void)
     // TODO
     // find the number of times second column of locked is true
     // then print out min (should be zero)
-    int candidate_edge_losses[candidate_count];
+    int max_edges_index = -1;
+    int max_edges_cnt = -1;
     for (int i = 0; i < candidate_count; i++)
     {
-        // start at zero
-        candidate_edge_losses[i] = 0;
+        int row_edge_cnt = 0;
         for (int j = 0; j < candidate_count; j++)
         {
-            if (locked[j][i])
+            if (locked[i][j])
             {
-                candidate_edge_losses[i]++;
+                row_edge_cnt++;
             }
         }
-    }
-
-    // now find min in candidate_edge_wins
-    int min_edges_count = 1000; // start at candidate 0
-    int min_edges_index = -1;
-    for (int k = 0; k < candidate_count; k++)
-    {
-        if (candidate_edge_losses[k] < min_edges_count)
+        if (row_edge_cnt > max_edges_cnt)
         {
-            min_edges_count = candidate_edge_losses[k];
-            min_edges_index = k;
+            // currently the winner
+            max_edges_index = i;
         }
     }
 
+    printf("%s\n", candidates[max_edges_index]);
+
+    //int candidate_edge_losses[candidate_count];
+    //for (int i = 0; i < candidate_count; i++)
+    //{
+        // start at zero
+    //    candidate_edge_losses[i] = 0;
+    //    for (int j = 0; j < candidate_count; j++)
+    //    {
+    //        if (locked[j][i])
+    //        {
+    //            candidate_edge_losses[i]++;
+    //        }
+    //    }
+    //}
+
+    // now find min in candidate_edge_wins
+    //int min_edges_count = 1000; // start at candidate 0
+    //int min_edges_index = -1;
+    //for (int k = 0; k < candidate_count; k++)
+    //{
+    //    if (candidate_edge_losses[k] < min_edges_count)
+    //    {
+    //        min_edges_count = candidate_edge_losses[k];
+    //        min_edges_index = k;
+    //    }
+    //}
+
     // print out candidate at max_edges_index
-    printf("%s\n", candidates[min_edges_index]);
+    //printf("%s\n", candidates[min_edges_index]);
     return;
 }
