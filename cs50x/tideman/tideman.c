@@ -1,5 +1,6 @@
 #include <cs50.h>
 #include <stdio.h>
+#include <string.h>
 
 // Max number of candidates
 #define MAX 9
@@ -59,6 +60,7 @@ int main(int argc, string argv[])
         for (int j = 0; j < candidate_count; j++)
         {
             locked[i][j] = false;
+            preferences[i][j] = 0;
         }
     }
 
@@ -84,7 +86,6 @@ int main(int argc, string argv[])
         }
 
         record_preferences(ranks);
-
         printf("\n");
     }
 
@@ -106,7 +107,7 @@ bool vote(int rank, string name, int ranks[])
         if (strcmp(candidates[i], name) == 0)
         {
             // found the candidate so move on to the other stuff
-            ranks[rank] = name;
+            ranks[rank] = i;
             return true;
         }
     }
@@ -117,7 +118,18 @@ bool vote(int rank, string name, int ranks[])
 void record_preferences(int ranks[])
 {
     // TODO
-    // take the name of each rank
+    // loop through preferences 3D array and add one for the spot of first over all the rest
+    // for example: rank candidate indexes are 0, 1, 2, 3
+    // add one to preferences[0][1], preferences[0][2] & preferences[0][3]
+    // add one to preferences[1][2] & preferences[1][3] and so on
+    for (int i = 0; i < candidate_count - 1; i++)
+    {
+        for (int j = i + 1; j < candidate_count; j++)
+        {
+            // adds the preference over all the other candidates after it
+            preferences[ranks[i]][ranks[j]]++;
+        }
+    }
     return;
 }
 
@@ -125,6 +137,22 @@ void record_preferences(int ranks[])
 void add_pairs(void)
 {
     // TODO
+    // Loop through preferences and look at comparison of [i][j] number vs [j][i] number
+    for (int i = 0; i < candidate_count; i++)
+    {
+        for (int j = 0; j < candidate_count; j++)
+        {
+            if (preferences[i][j] > preferences[j][i])
+            {
+                // If [i][j] > [j][i], add one to pair_count and add winner = i and loser = j to pairs array
+                // only look for the over because the other will be checked when i reaches where j is at now
+                pairs[pair_count].winner = i;
+                pairs[pair_count].loser = j;
+                pair_count++;
+            }
+        }
+    }
+
     return;
 }
 
@@ -132,6 +160,38 @@ void add_pairs(void)
 void sort_pairs(void)
 {
     // TODO
+    // Use sorting method and link between pairs and preferences to put from highest to lowest
+    // Going to swap method (bubble but the opposite way)
+    bool swap;
+    pair intermediate_pair;
+    for (int i = 0; i < pair_count; i++)
+    {
+        swap = false;
+        for (int j = 0; j < pair_count - 1; j++)
+        {
+            if (preferences[pairs[j].winner][pairs[j].loser] < preferences[pairs[j + 1].winner][pairs[j + 1].loser])
+            {
+                // need to swap to put the higher pair first
+                // will leave ties alone
+                swap = true;
+                intermediate_pair = pairs[j];
+                pairs[j] = pairs[j + 1];
+                pairs[j + 1] = intermediate_pair;
+            }
+        }
+        if (!swap)
+        {
+            // list is sorted
+            break;
+        }
+    }
+
+    // print out sorted pairs
+    //for (int k = 0; k < pair_count; k++)
+    //{
+        //printf("Winner: %s, Loser: %s\n", candidates[pairs[k].winner], candidates[pairs[k].loser]);
+    //}
+
     return;
 }
 
@@ -139,6 +199,30 @@ void sort_pairs(void)
 void lock_pairs(void)
 {
     // TODO
+    // loop through pairs in outer loop
+    // at inner loop, look for outer winner = inner loser
+    // if yes, look for inner winner = outer loser
+    bool cycle;
+    for (int i = 0; i < pair_count; i++)
+    {
+        cycle = false;
+        for (int j = 0; j < candidate_count; j++)
+        {
+            if (locked[j][pairs[i].winner] && locked[pairs[i].loser][j])
+            {
+                // you would be creating a cycle here
+                cycle = true;
+                break;
+            }
+        }
+        if (!cycle)
+        {
+            // assign true to locked
+            locked[pairs[i].winner][pairs[i].loser] = true;
+            //printf("Locked in %s over %s\n", candidates[pairs[i].winner], candidates[pairs[i].loser]);
+        }
+    }
+
     return;
 }
 
@@ -146,5 +230,35 @@ void lock_pairs(void)
 void print_winner(void)
 {
     // TODO
+    // find the number of times second column of locked is true
+    // then print out min (should be zero)
+    int candidate_edge_losses[candidate_count];
+    for (int i = 0; i < candidate_count; i++)
+    {
+        // start at zero
+        candidate_edge_losses[i] = 0;
+        for (int j = 0; j < candidate_count; j++)
+        {
+            if (locked[j][i])
+            {
+                candidate_edge_losses[i]++;
+            }
+        }
+    }
+
+    // now find min in candidate_edge_wins
+    int min_edges_count = candidate_edge_losses[0]; // start at candidate 0
+    int min_edges_index = 1000;
+    for (int k = 0; k < candidate_count; k++)
+    {
+        if (candidate_edge_losses[k] < min_edges_count)
+        {
+            min_edges_count = candidate_edge_losses[k];
+            min_edges_index = k;
+        }
+    }
+
+    // print out candidate at max_edges_index
+    printf("%s\n", candidates[min_edges_index]);
     return;
 }
