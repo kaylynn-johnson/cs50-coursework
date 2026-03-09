@@ -254,8 +254,8 @@ void print_winner(void)
     }
 
     // now find min in candidate_edge_wins
-    int min_edges_count = -1; // start at candidate 0
-    int min_edges_index = 1000;
+    int min_edges_count = 1000; // start at candidate 0
+    int min_edges_index = -1;
     for (int k = 0; k < candidate_count; k++)
     {
         if (candidate_edge_losses[k] < min_edges_count)
