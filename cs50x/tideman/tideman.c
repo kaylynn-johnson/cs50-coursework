@@ -276,6 +276,7 @@ void print_winner(void)
             // currently the winner
             printf("%s is currently the winner\n", candidates[i]);
             max_edges_index = i;
+            max_edges_cnt = row_edge_cnt;
         }
     }
 
