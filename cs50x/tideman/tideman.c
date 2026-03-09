@@ -263,12 +263,18 @@ void print_winner(void)
         {
             if (locked[i][j])
             {
+                printf("incremented\n");
                 row_edge_cnt++;
+            }
+            else
+            {
+                printf("No\n");
             }
         }
         if (row_edge_cnt > max_edges_cnt)
         {
             // currently the winner
+            printf("%s is currently the winner\n", candidates[i]);
             max_edges_index = i;
         }
     }
