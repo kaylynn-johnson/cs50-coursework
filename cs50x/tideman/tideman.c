@@ -203,17 +203,17 @@ void lock_pairs(void)
     // at inner loop, look for outer winner = inner loser
     // if yes, look for inner winner = outer loser
     bool cycle;
-    printf("There are %i pairs and %i candidates\n", pair_count, candidate_count);
+    //printf("There are %i pairs and %i candidates\n", pair_count, candidate_count);
     for (int i = 0; i < pair_count; i++)
     {
-        printf("i = %i; winner = %s; loser = %s\n", i, candidates[pairs[i].winner], candidates[pairs[i].loser]);
+        //printf("i = %i; winner = %s; loser = %s\n", i, candidates[pairs[i].winner], candidates[pairs[i].loser]);
         cycle = false;
         for (int j = 0; j < candidate_count; j++)
         {
             if (locked[j][pairs[i].winner] && locked[pairs[i].loser][j])
             {
                 // you would be creating a cycle here
-                printf("Found a cycle between candidates %s, %s, and %s\n", candidates[j], candidates[pairs[i].winner], candidates[pairs[i].loser]);
+                //printf("Found a cycle between candidates %s, %s, and %s\n", candidates[j], candidates[pairs[i].winner], candidates[pairs[i].loser]);
                 cycle = true;
                 break;
             }
@@ -222,28 +222,28 @@ void lock_pairs(void)
         {
             // assign true to locked
             locked[pairs[i].winner][pairs[i].loser] = true;
-            printf("Locked in %s over %s\n", candidates[pairs[i].winner], candidates[pairs[i].loser]);
+            //printf("Locked in %s over %s\n", candidates[pairs[i].winner], candidates[pairs[i].loser]);
         }
         else
         {
-            printf("Did not lock in %s over %s\n", candidates[pairs[i].winner], candidates[pairs[i].loser]);
+            //printf("Did not lock in %s over %s\n", candidates[pairs[i].winner], candidates[pairs[i].loser]);
         }
     }
 
-    for (int k = 0; k < candidate_count; k++)
-    {
-        for (int l = 0; l < candidate_count; l++)
-        {
-            if (locked[k][l])
-            {
-                printf(" T ");
-            }
-            else {
-                printf(" F ");
-            }
-        }
-        printf("\n");
-    }
+    //for (int k = 0; k < candidate_count; k++)
+    //{
+    //    for (int l = 0; l < candidate_count; l++)
+    //    {
+    //        if (locked[k][l])
+    //        {
+    //            printf(" T ");
+    //        }
+    //        else {
+    //            printf(" F ");
+    //        }
+    //    }
+    //    printf("\n");
+    //}
 
     return;
 }
@@ -263,18 +263,18 @@ void print_winner(void)
         {
             if (locked[i][j])
             {
-                printf("incremented\n");
+                //printf("incremented\n");
                 row_edge_cnt++;
             }
             else
             {
-                printf("No\n");
+                //printf("No\n");
             }
         }
         if (row_edge_cnt > max_edges_cnt)
         {
             // currently the winner
-            printf("%s is currently the winner\n", candidates[i]);
+            //printf("%s is currently the winner\n", candidates[i]);
             max_edges_index = i;
             max_edges_cnt = row_edge_cnt;
         }
