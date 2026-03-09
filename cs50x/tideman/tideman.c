@@ -203,17 +203,17 @@ void lock_pairs(void)
     // at inner loop, look for outer winner = inner loser
     // if yes, look for inner winner = outer loser
     bool cycle;
-    printf("There are %i pairs and %i candidates\n", pair_count, candidate_count);
+    //printf("There are %i pairs and %i candidates\n", pair_count, candidate_count);
     for (int i = 0; i < pair_count; i++)
     {
-        printf("i = %i; winner = %i; loser = %i\n", i, pairs[i].winner, pairs[i].loser);
+        //printf("i = %i; winner = %i; loser = %i\n", i, pairs[i].winner, pairs[i].loser);
         cycle = false;
         for (int j = 0; j < candidate_count; j++)
         {
             if (locked[j][pairs[i].winner] && locked[pairs[i].loser][j])
             {
                 // you would be creating a cycle here
-                printf("Found a cycle between candidates %i, %i, and %i\n", j, pairs[i].winner, pairs[i].loser);
+                //printf("Found a cycle between candidates %i, %i, and %i\n", j, pairs[i].winner, pairs[i].loser);
                 cycle = true;
                 break;
             }
@@ -222,11 +222,11 @@ void lock_pairs(void)
         {
             // assign true to locked
             locked[pairs[i].winner][pairs[i].loser] = true;
-            printf("Locked in %s over %s\n", candidates[pairs[i].winner], candidates[pairs[i].loser]);
+            //printf("Locked in %s over %s\n", candidates[pairs[i].winner], candidates[pairs[i].loser]);
         }
         else
         {
-            printf("Did not lock in %s over %s\n", candidates[pairs[i].winner], candidates[pairs[i].loser]);
+            //printf("Did not lock in %s over %s\n", candidates[pairs[i].winner], candidates[pairs[i].loser]);
         }
     }
 
