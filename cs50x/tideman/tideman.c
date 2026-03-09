@@ -230,6 +230,21 @@ void lock_pairs(void)
         }
     }
 
+    for (int k = 0; k < candidate_count; k++)
+    {
+        for (int l = 0; l < candidate_count; l++)
+        {
+            if (locked[k][l])
+            {
+                printf(" T ");
+            }
+            else {
+                printf(" F ");
+            }
+        }
+        printf("\n");
+    }
+
     return;
 }
 
