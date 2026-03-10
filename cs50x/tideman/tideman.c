@@ -144,8 +144,9 @@ void add_pairs(void)
         {
             if (preferences[i][j] > preferences[j][i])
             {
-                // If [i][j] > [j][i], add one to pair_count and add winner = i and loser = j to pairs array
-                // only look for the over because the other will be checked when i reaches where j is at now
+                // If [i][j] > [j][i], add one to pair_count and add winner = i and loser = j to
+                // pairs array only look for the over because the other will be checked when i
+                // reaches where j is at now
                 pairs[pair_count].winner = i;
                 pairs[pair_count].loser = j;
                 pair_count++;
@@ -169,7 +170,8 @@ void sort_pairs(void)
         swap = false;
         for (int j = 0; j < pair_count - 1; j++)
         {
-            if (preferences[pairs[j].winner][pairs[j].loser] < preferences[pairs[j + 1].winner][pairs[j + 1].loser])
+            if (preferences[pairs[j].winner][pairs[j].loser] <
+                preferences[pairs[j + 1].winner][pairs[j + 1].loser])
             {
                 // need to swap to put the higher pair first
                 // will leave ties alone
@@ -186,12 +188,6 @@ void sort_pairs(void)
         }
     }
 
-    // print out sorted pairs
-    //for (int k = 0; k < pair_count; k++)
-    //{
-        //printf("Winner: %s, Loser: %s\n", candidates[pairs[k].winner], candidates[pairs[k].loser]);
-    //}
-
     return;
 }
 
@@ -203,17 +199,14 @@ void lock_pairs(void)
     // at inner loop, look for outer winner = inner loser
     // if yes, look for inner winner = outer loser
     bool cycle;
-    //printf("There are %i pairs and %i candidates\n", pair_count, candidate_count);
     for (int i = 0; i < pair_count; i++)
     {
-        //printf("i = %i; winner = %s; loser = %s\n", i, candidates[pairs[i].winner], candidates[pairs[i].loser]);
         cycle = false;
         for (int j = 0; j < candidate_count; j++)
         {
             if (locked[j][pairs[i].winner] && locked[pairs[i].loser][j])
             {
                 // you would be creating a cycle here
-                //printf("Found a cycle between candidates %s, %s, and %s\n", candidates[j], candidates[pairs[i].winner], candidates[pairs[i].loser]);
                 cycle = true;
                 break;
             }
@@ -222,28 +215,8 @@ void lock_pairs(void)
         {
             // assign true to locked
             locked[pairs[i].winner][pairs[i].loser] = true;
-            //printf("Locked in %s over %s\n", candidates[pairs[i].winner], candidates[pairs[i].loser]);
-        }
-        else
-        {
-            //printf("Did not lock in %s over %s\n", candidates[pairs[i].winner], candidates[pairs[i].loser]);
         }
     }
-
-    //for (int k = 0; k < candidate_count; k++)
-    //{
-    //    for (int l = 0; l < candidate_count; l++)
-    //    {
-    //        if (locked[k][l])
-    //        {
-    //            printf(" T ");
-    //        }
-    //        else {
-    //            printf(" F ");
-    //        }
-    //    }
-    //    printf("\n");
-    //}
 
     return;
 }
@@ -254,61 +227,33 @@ void print_winner(void)
     // TODO
     // find the number of times second column of locked is true
     // then print out min (should be zero)
-    int max_edges_index = -1;
-    int max_edges_cnt = -1;
+    int candidate_edge_losses[candidate_count];
     for (int i = 0; i < candidate_count; i++)
     {
-        int row_edge_cnt = 0;
+        // start at zero
+        candidate_edge_losses[i] = 0;
         for (int j = 0; j < candidate_count; j++)
         {
-            if (locked[i][j])
+            if (locked[j][i])
             {
-                //printf("incremented\n");
-                row_edge_cnt++;
+                candidate_edge_losses[i]++;
             }
-            else
-            {
-                //printf("No\n");
-            }
-        }
-        if (row_edge_cnt > max_edges_cnt)
-        {
-            // currently the winner
-            //printf("%s is currently the winner\n", candidates[i]);
-            max_edges_index = i;
-            max_edges_cnt = row_edge_cnt;
         }
     }
 
-    printf("%s\n", candidates[max_edges_index]);
-
-    //int candidate_edge_losses[candidate_count];
-    //for (int i = 0; i < candidate_count; i++)
-    //{
-        // start at zero
-    //    candidate_edge_losses[i] = 0;
-    //    for (int j = 0; j < candidate_count; j++)
-    //    {
-    //        if (locked[j][i])
-    //        {
-    //            candidate_edge_losses[i]++;
-    //        }
-    //    }
-    //}
-
     // now find min in candidate_edge_wins
-    //int min_edges_count = 1000; // start at candidate 0
-    //int min_edges_index = -1;
-    //for (int k = 0; k < candidate_count; k++)
-    //{
-    //    if (candidate_edge_losses[k] < min_edges_count)
-    //    {
-    //        min_edges_count = candidate_edge_losses[k];
-    //        min_edges_index = k;
-    //    }
-    //}
+    int min_edges_count = 1000; // start at candidate 0
+    int min_edges_index = -1;
+    for (int k = 0; k < candidate_count; k++)
+    {
+        if (candidate_edge_losses[k] < min_edges_count)
+        {
+            min_edges_count = candidate_edge_losses[k];
+            min_edges_index = k;
+        }
+    }
 
     // print out candidate at max_edges_index
-    //printf("%s\n", candidates[min_edges_index]);
+    printf("%s\n", candidates[min_edges_index]);
     return;
 }
