@@ -37,14 +37,14 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
         {
             // swap j with (width - j)
             // set temp variables (right values)
-            temp_blue = image[i][width - j + 1].rgbtBlue;
-            temp_green = image[i][width - j + 1].rgbtGreen;
-            temp_red = image[i][width - j + 1].rgbtRed;
+            temp_blue = image[i][width - j - 1].rgbtBlue;
+            temp_green = image[i][width - j - 1].rgbtGreen;
+            temp_red = image[i][width - j - 1].rgbtRed;
 
             // assign right values to left values
-            image[i][width - j + 1].rgbtBlue = image[i][j].rgbtBlue;
-            image[i][width - j + 1].rgbtGreen = image[i][j].rgbtGreen;
-            image[i][width - j + 1].rgbtRed = image[i][j].rgbtRed;
+            image[i][width - j - 1].rgbtBlue = image[i][j].rgbtBlue;
+            image[i][width - j - 1].rgbtGreen = image[i][j].rgbtGreen;
+            image[i][width - j - 1].rgbtRed = image[i][j].rgbtRed;
 
             // assign left values to temp variables (right values)
             image[i][j].rgbtBlue = temp_blue;
