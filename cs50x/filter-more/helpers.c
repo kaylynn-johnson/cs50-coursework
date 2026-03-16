@@ -72,6 +72,7 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
 void blur(int height, int width, RGBTRIPLE image[height][width])
 {
     int avg;
+    int pixels[12];
 
     for (int i = 0; i < height; i++)
     {
