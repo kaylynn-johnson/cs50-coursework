@@ -71,9 +71,9 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
 // Blur image
 void blur(int height, int width, RGBTRIPLE image[height][width])
 {
-    int avg_blue;
-    int avg_green;
-    int avg_red;
+    BYTE avg_blue;
+    BYTE avg_green;
+    BYTE avg_red;
     float num_pixels;
     //int pixels[12];
 
@@ -85,78 +85,102 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
             if (i == 0 && j == 0)
             {
                 // top left corner
-                BYTE pixels[4] = {image[i][j], image[i][j+1],
-                          image[i+1][j], image[i+1][j+1]};
-                num_pixels = 4.0;
+                avg_blue = round((image[i][j].rgbtBlue + image[i][j+1].rgbtBlue
+                                + image[i+1][j].rgbtBlue + image[i+1][j+1].rgbtBlue) / 4.0);
+                avg_green = round((image[i][j].rgbtGreen + image[i][j+1].rgbtGreen
+                                + image[i+1][j].rgbtGreen + image[i+1][j+1].rgbtGreen) / 4.0);
+                avg_red = round((image[i][j].rgbtRed + image[i][j+1].rgbtRed
+                                + image[i+1][j].rgbtRed + image[i+1][j+1].rgbtRed) / 4.0);
             }
             else if (i == 0 && j == (width - 1))
             {
                 // top right corner
-                BYTE pixels = {image[i][j-1], image[i][j],
-                          image[i+1][j-1], image[i+1][j]};
-                num_pixels = 4.0;
+                avg_blue = round((image[i][j-1].rgbtBlue + image[i][j].rgbtBlue
+                                + image[i+1][j-1].rgbtBlue + image[i+1][j].rgbtBlue) / 4.0);
+                avg_green = round((image[i][j-1].rgbtGreen + image[i][j].rgbtGreen
+                                + image[i+1][j-1].rgbtGreen + image[i+1][j].rgbtGreen) / 4.0);
+                avg_red = round((image[i][j-1].rgbtRed + image[i][j].rgbtRed
+                                + image[i+1][j-1].rgbtRed + image[i+1][j].rgbtRed) / 4.0);
             }
             else if (i == (height - 1) && j == 0)
             {
                 // bottom left corner
-                BYTE pixels = {image[i-1][j], image[i-1][j+1],
-                          image[i][j], image[i][j+1]};
-                num_pixels = 4.0;
+                avg_blue = round((image[i-1][j].rgbtBlue + image[i-1][j+1].rgbtBlue
+                                + image[i][j].rgbtBlue + image[i][j+1].rgbtBlue) / 4.0);
+                avg_green = round((image[i-1][j].rgbtGreen + image[i-1][j+1].rgbtGreen
+                                + image[i][j].rgbtGreen + image[i][j+1].rgbtGreen) / 4.0);
+                avg_red = round((image[i-1][j].rgbtRed + image[i-1][j+1].rgbtRed
+                                + image[i][j].rgbtRed + image[i][j+1].rgbtRed) / 4.0);
             }
             else if (i == (height - 1) && j == (width - 1))
             {
                 // bottom right corner
-                BYTE pixels = {image[i+1][j-1], image[i+1][j],
-                          image[i][j-1], image[i][j]};
-                num_pixels = 4.0;
+                avg_blue = round((image[i-1][j-1].rgbtBlue + image[i-1][j].rgbtBlue
+                                + image[i][j-1].rgbtBlue + image[i][j].rgbtBlue) / 4.0);
+                avg_green = round((image[i-1][j-1].rgbtGreen + image[i-1][j].rgbtGreen
+                                + image[i][j-1].rgbtGreen + image[i][j].rgbtGreen) / 4.0);
+                avg_red = round((image[i-1][j-1].rgbtRed + image[i-1][j].rgbtRed
+                                + image[i][j-1].rgbtRed + image[i][j].rgbtRed) / 4.0);
             }
             else if (j == 0)
             {
                 // left side
-                BYTE pixels = {image[i-1][j], image[i-1][j+1],
-                          image[i][j], image[i][j+1],
-                          image[i+1][j], image[i+1][j+1]};
-                num_pixels = 6.0;
+                avg_blue = round((image[i-1][j].rgbtBlue + image[i-1][j+1].rgbtBlue +
+                          image[i][j].rgbtBlue + image[i][j+1].rgbtBlue +
+                          image[i+1][j].rgbtBlue + image[i+1][j+1].rgbtBlue) / 6.0);
+                avg_green = round((image[i-1][j].rgbtGreen + image[i-1][j+1].rgbtGreen +
+                          image[i][j].rgbtGreen + image[i][j+1].rgbtGreen +
+                          image[i+1][j].rgbtGreen + image[i+1][j+1].rgbtGreen) / 6.0);
+                avg_red = round((image[i-1][j].rgbtRed + image[i-1][j+1].rgbtRed +
+                          image[i][j].rgbtRed + image[i][j+1].rgbtRed +
+                          image[i+1][j].rgbtRed + image[i+1][j+1].rgbtRed) / 6.0);
             }
             else if (j == (width - 1))
             {
                 // right side
-                BYTE pixels = {image[i-1][j-1], image[i-1][j],
-                          image[i][j-1], image[i][j],
-                          image[i+1][j-1], image[i+1][j]};
-                num_pixels = 6.0;
+                avg_blue = round((image[i-1][j-1].rgbtBlue + image[i-1][j].rgbtBlue +
+                          image[i][j-1].rgbtBlue + image[i][j].rgbtBlue +
+                          image[i+1][j-1].rgbtBlue + image[i+1][j].rgbtBlue) / 6.0);
+                avg_green = round((image[i-1][j-1].rgbtGreen + image[i-1][j].rgbtGreen +
+                          image[i][j-1].rgbtGreen + image[i][j].rgbtGreen +
+                          image[i+1][j-1].rgbtGreen + image[i+1][j].rgbtGreen) / 6.0);
+                avg_red = round((image[i-1][j-1].rgbtRed + image[i-1][j].rgbtRed +
+                          image[i][j-1].rgbtRed + image[i][j].rgbtRed +
+                          image[i+1][j-1].rgbtRed + image[i+1][j].rgbtRed) / 6.0);
             }
             else if (i == 0)
             {
                 // top side
-                BYTE pixels = {image[i][j-1], image[i][j], image[i][j+1],
-                          image[i+1][j-1], image[i+1][j], image[i+1][j+1]};
-                num_pixels = 6.0;
+                avg_blue = round((image[i][j-1].rgbtBlue + image[i][j].rgbtBlue + image[i][j+1].rgbtBlue +
+                                image[i+1][j-1].rgbtBlue + image[i+1][j].rgbtBlue + image[i+1][j+1].rgbtBlue) / 6.0);
+                avg_green = round((image[i][j-1].rgbtGreen + image[i][j].rgbtGreen + image[i][j+1].rgbtGreen +
+                                image[i+1][j-1].rgbtGreen + image[i+1][j].rgbtGreen + image[i+1][j+1].rgbtGreen) / 6.0);
+                avg_red = round((image[i][j-1].rgbtRed + image[i][j].rgbtRed + image[i][j+1].rgbtRed +
+                                image[i+1][j-1].rgbtRed + image[i+1][j].rgbtRed + image[i+1][j+1].rgbtRed) / 6.0);
             }
             else if (i == (height - 1))
             {
                 // bottom side
-                BYTE pixels = {image[i-1][j-1], image[i-1][j], image[i-1][j+1],
-                          image[i][j-1], image[i][j], image[i][j+1]};
-                num_pixels = 6.0;
+                avg_blue = round((image[i-1][j-1].rgbtBlue + image[i-1][j].rgbtBlue + image[i-1][j+1].rgbtBlue +
+                                image[i][j-1].rgbtBlue + image[i][j].rgbtBlue + image[i][j+1].rgbtBlue) / 6.0);
+                avg_green = round((image[i-1][j-1].rgbtGreen + image[i-1][j].rgbtGreen + image[i-1][j+1].rgbtGreen +
+                                image[i][j-1].rgbtGreen + image[i][j].rgbtGreen + image[i][j+1].rgbtGreen) / 6.0);
+                avg_red = round((image[i-1][j-1].rgbtRed + image[i-1][j].rgbtRed + image[i-1][j+1].rgbtRed +
+                                image[i][j-1].rgbtRed + image[i][j].rgbtRed + image[i][j+1].rgbtRed) / 6.0);
             }
             else
             {
-                BYTE pixels = {image[i-1][j-1], image[i-1][j], image[i-1][j+1],
-                          image[i][j-1], image[i][j], image[i][j+1],
-                          image[i+1][j-1], image[i+1][j], image[i+1][j+1]};
-                num_pixels = 12.0;
+                // middle pixel
+                avg_blue = round((image[i-1][j-1].rgbtBlue + image[i-1][j].rgbtBlue + image[i-1][j+1].rgbtBlue +
+                                image[i][j-1].rgbtBlue + image[i][j].rgbtBlue + image[i][j+1].rgbtBlue +
+                                image[i+1][j-1].rgbtBlue + image[i+1][j].rgbtBlue + image[i+1][j+1].rgbtBlue) / 12.0);
+                avg_green = round((image[i-1][j-1].rgbtGreen + image[i-1][j].rgbtGreen + image[i-1][j+1].rgbtGreen +
+                                image[i][j-1].rgbtGreen + image[i][j].rgbtGreen + image[i][j+1].rgbtGreen +
+                                image[i+1][j-1].rgbtGreen + image[i+1][j].rgbtGreen + image[i+1][j+1].rgbtGreen) / 12.0);
+                avg_red = round((image[i-1][j-1].rgbtRed + image[i-1][j].rgbtRed + image[i-1][j+1].rgbtRed +
+                                image[i][j-1].rgbtRed + image[i][j].rgbtRed + image[i][j+1].rgbtRed +
+                                image[i+1][j-1].rgbtRed + image[i+1][j].rgbtRed + image[i+1][j+1].rgbtRed) / 12.0);
             }
-
-            for (int k = 0; k < num_pixels; k++)
-            {
-                avg_blue += pixels[k].rgbtBlue;
-                avg_green += pixels[k].rgbtGreen;
-                avg_red += pixels[k].rgbtRed;
-            }
-            avg_blue = round(avg_blue / num_pixels);
-            avg_green = round(avg_green / num_pixels);
-            avg_red = round(avg_red / num_pixels);
 
             // assign the avg to all the RGB values
             image[i][j].rgbtBlue = (int) avg_blue;
