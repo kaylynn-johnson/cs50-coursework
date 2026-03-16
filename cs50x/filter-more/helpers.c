@@ -88,6 +88,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                           image[i+1][j], image[i+1][j+1]};
                 num_pixels = 4.0;
             }
+            else if ()
             pixels = {image[i-1][j-1], image[i-1][j], image[i-1][j+1],
                       image[i][j-1], image[i][j], image[i][j+1],
                       image[i+1][j-1], image[i+1][j], image[i+1][j+1]};
