@@ -71,13 +71,29 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
 // Blur image
 void blur(int height, int width, RGBTRIPLE image[height][width])
 {
-    int avg;
+    int avg_blue;
+    int avg_green;
+    int avg_red;
+    float num_pixels;
     int pixels[12];
 
     for (int i = 0; i < height; i++)
     {
         for (int j = 0; j < width; j++)
         {
+            pixels = {image[i-1][j-1], image[i-1][j], image[i-1][j+1],
+                      image[i][j-1], image[i][j], image[i][j+1],
+                      image[i+1][j-1], image[i+1][j], image[i+1][j+1]};
+            num_pixels = 12;
+            for (int k = 0; k < num_pixels; k++)
+            {
+                avg_blue += pixels[k].rgbtBlue;
+                avg_green += pixels[k].rgbtGreen;
+                avg_red += pixels[k].rgbtRed;
+            }
+            avg_blue = round(avg_blue / num_pixels);
+            avg_green = round(avg_green / num_pixels);
+            avg_red = round(avg_red / num_pixels);
             avg = round((image[i-1][j-1] + image[i-1][j] + image[i-1][j+1]
                  + image[i][j-1] + image[i][j] + image[i][j+1]
                  + image[i+1][j-1] + image[i+1][j] + image[i+1][j+1]) / 12.0);
