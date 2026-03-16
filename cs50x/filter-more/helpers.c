@@ -77,9 +77,13 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
     {
         for (int j = 0; j < width; j++)
         {
-            avg = (image[i-1][j-1] + image[i-1][j] + image[i-1][j+1]
+            avg = round((image[i-1][j-1] + image[i-1][j] + image[i-1][j+1]
                  + image[i][j-1] + image[i][j] + image[i][j+1]
-                 + image[i+1][j-1] + image[i+1][j] + image[i+1][j+1]) / 12;
+                 + image[i+1][j-1] + image[i+1][j] + image[i+1][j+1]) / 12.0);
+            // assign the avg to all the RGB values
+            image[i][j].rgbtBlue = (int) avg;
+            image[i][j].rgbtGreen = (int) avg;
+            image[i][j].rgbtRed = (int) avg;
         }
     }
     return;
