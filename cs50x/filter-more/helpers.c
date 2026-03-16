@@ -85,35 +85,35 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
             if (i == 0 && j == 0)
             {
                 // top left corner
-                RGBTRIPLE pixels = {image[i][j], image[i][j+1],
+                BYTE pixels = {image[i][j], image[i][j+1],
                           image[i+1][j], image[i+1][j+1]};
                 num_pixels = 4.0;
             }
             else if (i == 0 && j == (width - 1))
             {
                 // top right corner
-                RGBTRIPLE pixels = {image[i][j-1], image[i][j],
+                BYTE pixels = {image[i][j-1], image[i][j],
                           image[i+1][j-1], image[i+1][j]};
                 num_pixels = 4.0;
             }
             else if (i == (height - 1) && j == 0)
             {
                 // bottom left corner
-                RGBTRIPLE pixels = {image[i-1][j], image[i-1][j+1],
+                BYTE pixels = {image[i-1][j], image[i-1][j+1],
                           image[i][j], image[i][j+1]};
                 num_pixels = 4.0;
             }
             else if (i == (height - 1) && j == (width - 1))
             {
                 // bottom right corner
-                RGBTRIPLE pixels = {image[i+1][j-1], image[i+1][j],
+                BYTE pixels = {image[i+1][j-1], image[i+1][j],
                           image[i][j-1], image[i][j]};
                 num_pixels = 4.0;
             }
             else if (j == 0)
             {
                 // left side
-                RGBTRIPLE pixels = {image[i-1][j], image[i-1][j+1],
+                BYTE pixels = {image[i-1][j], image[i-1][j+1],
                           image[i][j], image[i][j+1],
                           image[i+1][j], image[i+1][j+1]};
                 num_pixels = 6.0;
@@ -121,7 +121,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
             else if (j == (width - 1))
             {
                 // right side
-                RGBTRIPLE pixels = {image[i-1][j-1], image[i-1][j],
+                BYTE pixels = {image[i-1][j-1], image[i-1][j],
                           image[i][j-1], image[i][j],
                           image[i+1][j-1], image[i+1][j]};
                 num_pixels = 6.0;
@@ -129,20 +129,20 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
             else if (i == 0)
             {
                 // top side
-                RGBTRIPLE pixels = {image[i][j-1], image[i][j], image[i][j+1],
+                BYTE pixels = {image[i][j-1], image[i][j], image[i][j+1],
                           image[i+1][j-1], image[i+1][j], image[i+1][j+1]};
                 num_pixels = 6.0;
             }
             else if (i == (height - 1))
             {
                 // bottom side
-                RGBTRIPLE pixels = {image[i-1][j-1], image[i-1][j], image[i-1][j+1],
+                BYTE pixels = {image[i-1][j-1], image[i-1][j], image[i-1][j+1],
                           image[i][j-1], image[i][j], image[i][j+1]};
                 num_pixels = 6.0;
             }
             else
             {
-                RGBTRIPLE pixels = {image[i-1][j-1], image[i-1][j], image[i-1][j+1],
+                BYTE pixels = {image[i-1][j-1], image[i-1][j], image[i-1][j+1],
                           image[i][j-1], image[i][j], image[i][j+1],
                           image[i+1][j-1], image[i+1][j], image[i+1][j+1]};
                 num_pixels = 12.0;
