@@ -30,10 +30,22 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
     int temp_blue;
     int temp_green;
     int temp_red;
+    int halfway;
+
+    if (width % 2 == 0)
+    {
+        // even width
+        halfway = width / 2;
+    }
+    else
+    {
+        // odd width
+        halfway = width / 2 + 1;
+    }
     // loop through half of width
     for (int i = 0; i < height; i++)
     {
-        for (int j = 0; j < (width / 2) + 1; j++)
+        for (int j = 0; j < halfway; j++)
         {
             // swap j with (width - j)
             // set temp variables (right values)
