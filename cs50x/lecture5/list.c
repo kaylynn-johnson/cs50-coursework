@@ -1,33 +1,30 @@
+#include <cs50.h>
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct node
+{
+    int number;
+    struct node *next;
+} node;
+
 int main(void)
 {
-    int *list = malloc(3 * sizeof(int));
-    if (list == NULL)
+    node *list = NULL;
+
+    for (int i = 0; i < 3; i++)
     {
-        return 1;
+        node *n = malloc(sizeof(node));
+        if (n == NULL)
+        {
+            return 1;
+        }
+        n->number = get_int("Number: ");
+        n->next = NULL;
+
+        // Prepend node to list
+        n->next = list;
+        list = n;
     }
-    list[0] = 1;
-    list[1] = 2;
-    list[2] = 3;
-
-    // Need another bit of memory
-    int *temp = realloc(list, 4 * sizeof(int));
-    if (temp == NULL)
-    {
-        free(list);
-        return 1;
-    }
-    temp[3] = 4;
-
-    free(list);
-    list = temp;
-
-    for (int i = 0; i < 4; i++)
-    {
-        printf("%i\n", list[i]);
-    }
-
-    free(list);
+    return 0;
 }
