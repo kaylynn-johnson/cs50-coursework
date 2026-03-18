@@ -34,5 +34,10 @@ int main(void)
         printf("%i\n", ptr->number);
         ptr = ptr->next;
     }
+
+    for (node *ptr2 = list; ptr2 != NULL; ptr2 = ptr2->next)
+    {
+        printf("%i\n", ptr2->number);
+    }
     return 0;
 }
