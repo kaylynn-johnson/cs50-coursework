@@ -26,5 +26,8 @@ int main(void)
         n->next = list;
         list = n;
     }
+
+    // print the numbers
+    
     return 0;
 }
