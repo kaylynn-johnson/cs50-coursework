@@ -38,5 +38,13 @@ int main(void)
         ptr = ptr->next;
     }
 
+    node *ptr2 = list;
+    while (ptr != NULL)
+    {
+        node *tmp = ptr2;
+        ptr2 = ptr2->next;
+        free(tmp);
+    }
+
 
 }
