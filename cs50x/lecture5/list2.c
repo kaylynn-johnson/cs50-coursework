@@ -16,6 +16,11 @@ int main(void)
     {
         int new_num = get_int("Enter a new number: ");
         node *n = malloc(sizeof(node));
+        if (n == NULL)
+        {
+            printf("Malloc failed.\n");
+            return 1;
+        }
         n->num = new_num;
         n->next = NULL;
 
