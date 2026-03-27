@@ -9,5 +9,7 @@ typedef struct node
 
 int main(void)
 {
-    
+    node list = NULL;
+
+    for (int i )
 }
