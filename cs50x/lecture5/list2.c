@@ -14,8 +14,8 @@ int main(void)
 
     for (int i = 0; i < 3; i++)
     {
-        new_num = get_int("Enter a new number: ");
-        n = malloc(sizeof(node));
+        int new_num = get_int("Enter a new number: ");
+        node *n = malloc(sizeof(node));
         n->num = new_num;
         n->next = NULL;
 
@@ -27,9 +27,10 @@ int main(void)
 
     // print numbers
     node *ptr = list;
-    while (ptr->next != NULL)
+    while (ptr != NULL)
     {
-        print("%i\n", ptr->num);
+        printf("%i\n", ptr->num);
+        ptr = ptr->next;
     }
 
 
