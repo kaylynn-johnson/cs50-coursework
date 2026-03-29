@@ -44,7 +44,19 @@ bool load(const char *dictionary)
     }
 
     // read each line (look for the \n char)
-    
+    int *letter = malloc(sizeof(char));
+    node *found_word = malloc(sizeof(node));
+    while(fread(letter, 1, 1, dict) != 0)
+    {
+        // ready letter by letter
+        if (*letter == '\n')
+        {
+            // reached the end of a word
+            // don't need to add the new line character to the found_word
+            // now add the final word to the hash
+
+        }
+    }
     // add each line to the hash table (starting with alphabet + linked list)
     // close dictionary file
     return false;
