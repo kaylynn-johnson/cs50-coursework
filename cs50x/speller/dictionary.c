@@ -30,38 +30,38 @@ bool check(const char *word)
     int index = hash(word);
     node *trav = table[index];
     int len = strlen(word);
-    // char lowercase_word[len];
-    // for (int i = 0; i < len; i++)
-    // {
-    //     //make word lowercase
-    //     lowercase_word[i] = tolower(word[i]);
+    char lowercase_word[len + 1];
+    for (int i = 0; i < len + 1; i++)
+    {
+        //make word lowercase
+        lowercase_word[i] = tolower(word[i]);
 
-    // }
+    }
     // printf("Made %s lowercase: %s\n", word, lowercase_word);
     bool misspelled = false;
     while (trav != NULL)
     {
         // printf("Comparing %s to %s in dictionary\n", word, trav->word);
-        misspelled = false;
-        for (int i = 0; i < len + 1; i++)
-        {
-            if (trav->word[i] != tolower(word[i]))
-            {
-                misspelled = true;
-                break;
-            }
-        }
-        if (!misspelled)
-        {
-            // made it through the for loop
-            return true;
-        }
-
-
-        // if (strcmp(trav->word, lowercase_word) == 0)
+        // misspelled = false;
+        // for (int i = 0; i < len + 1; i++)
         // {
+        //     if (trav->word[i] != tolower(word[i]))
+        //     {
+        //         misspelled = true;
+        //         break;
+        //     }
+        // }
+        // if (!misspelled)
+        // {
+        //     // made it through the for loop
         //     return true;
         // }
+
+
+        if (strcmp(trav->word, lowercase_word) == 0)
+        {
+            return true;
+        }
         trav = trav->next;
     }
     return false;
