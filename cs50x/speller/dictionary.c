@@ -27,15 +27,18 @@ bool check(const char *word)
     // get hash for the word to know which table index to look at
     int index = hash(word);
     node *trav = table[index];
-    char lowercase_word[strlen(word) + 1];
+    int len = strlen(word);
+    char lowercase_word[len];
+    for (int i = 0; i < len; i++)
+    {
+        //make word lowercase
+        lowercase_word[i] = tolower(word[i]);
+
+    }
+    printf("Made %s lowercase: %s\n", word, lowercase_word);
     while (trav != NULL)
     {
-        for (int i = 0; word[i] != '\0'; i++)
-        {
-            //make word lowercase
-            lowercase_word[i] = tolower(word[i]);
-
-        }
+        printf("Comparing %s to %s in dictionary\n", lowercase_word, trav->word);
         if (strcmp(trav->word, lowercase_word) == 0)
         {
             return true;
