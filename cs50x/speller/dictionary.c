@@ -64,6 +64,7 @@ bool load(const char *dictionary)
     }
     char *running_word[LENGTH+1];
     int counter = 0;
+    node *found_word;
     while(fread(letter, 1, 1, dict) != 0)
     {
         // reading letter by letter
@@ -75,7 +76,8 @@ bool load(const char *dictionary)
             {
                 return false:
             }
-            found_word
+            found_word->word[counter] = *letter;
+            counter++;
         }
 
         if (*letter == '\n')
