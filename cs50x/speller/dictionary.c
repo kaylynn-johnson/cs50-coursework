@@ -36,16 +36,16 @@ bool check(const char *word)
 
     // }
     // printf("Made %s lowercase: %s\n", word, lowercase_word);
-    bool found_word = true;
     while (trav != NULL)
     {
         for (int i = 0; i < len; i++)
         {
             if (trav->word[i] != tolower(word[i]))
             {
-                found_word = false;
+                break;
             }
         }
+        
         printf("Comparing %s to %s in dictionary\n", lowercase_word, trav->word);
         if (strcmp(trav->word, lowercase_word) == 0)
         {
