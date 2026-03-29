@@ -41,7 +41,7 @@ bool check(const char *word)
     {
         // printf("Comparing %s to %s in dictionary\n", word, trav->word);
         misspelled = false;
-        for (int i = 0; i < len; i++)
+        for (int i = 0; i < len + 1; i++)
         {
             if (trav->word[i] != tolower(word[i]))
             {
@@ -112,6 +112,7 @@ bool load(const char *dictionary)
             // reached the end of a word
             // don't need to add the new line character to the found_word
             // now add the final word to the hash
+            found_word->word[counter] = '\0';
             int index = hash(found_word->word);
             found_word->next = table[index];
             table[index] = found_word;
