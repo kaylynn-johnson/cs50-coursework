@@ -36,10 +36,9 @@ bool check(const char *word)
 
     // }
     // printf("Made %s lowercase: %s\n", word, lowercase_word);
-    bool found_word;
+    bool found_word = true;
     while (trav != NULL)
     {
-        found_word = true;
         for (int i = 0; i < len; i++)
         {
             if (trav->word[i] != tolower(word[i]))
