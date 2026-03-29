@@ -54,6 +54,8 @@ bool load(const char *dictionary)
             // reached the end of a word
             // don't need to add the new line character to the found_word
             // now add the final word to the hash
+            int index = hash(found_word->word);
+            table[index]->next = found_word;
 
         }
     }
