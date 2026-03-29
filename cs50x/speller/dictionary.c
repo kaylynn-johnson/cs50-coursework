@@ -89,7 +89,7 @@ unsigned int size(void)
     // nested for loops to loop through index of table and then linked list along there
     for (int i = 0; i < N; i++)
     {
-        for (node *trav = table[i]; trav != NULL; trav->next)
+        for (node *trav = table[i]; trav != NULL; trav = trav->next)
     }
     return 0;
 }
