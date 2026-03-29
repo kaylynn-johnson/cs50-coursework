@@ -15,10 +15,6 @@ typedef struct node
     struct node *next;
 } node;
 
-// TODO: Choose number of buckets in hash table
-//const unsigned int N = 26;
-// going for first two letters (0->25 for one letter words tho)
-// const unsigned int N = 702; //26 + (26*26)
 // going for length of word and first letter (0->44 words that start with a)
 const unsigned int N = 1170;
 
@@ -29,14 +25,13 @@ node *table[N];
 bool check(const char *word)
 {
     // make word lowercase to compare with dictionary words
-    // keep the nul character at the end of the 
+    // keep the nul character at the end of the word
     int len = strlen(word);
     char lowercase_word[len + 1];
     for (int i = 0; i < len + 1; i++)
     {
-        //make word lowercase
+        // make word lowercase
         lowercase_word[i] = tolower(word[i]);
-
     }
 
     // loop through the linked list at the appropriate hash bucket
@@ -67,7 +62,7 @@ bool load(const char *dictionary)
     FILE *dict = fopen(dictionary, "r");
     if (dict == NULL)
     {
-        //couldn't open the dictionary
+        // couldn't open the dictionary
         return false;
     }
 
@@ -81,12 +76,12 @@ bool load(const char *dictionary)
     // initialize important variables
     int counter = 0;
     node *found_word;
-    while(fread(letter, 1, 1, dict) != 0)
+    while (fread(letter, 1, 1, dict) != 0)
     {
         // reading letter by letter
         if (counter == 0)
         {
-            //create a new node
+            // create a new node
             found_word = malloc(sizeof(node));
             if (found_word == NULL)
             {
@@ -114,7 +109,6 @@ bool load(const char *dictionary)
             found_word->word[counter] = *letter;
             counter++;
         }
-
     }
     free(letter);
 
