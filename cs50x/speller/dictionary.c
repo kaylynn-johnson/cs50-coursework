@@ -86,7 +86,11 @@ bool load(const char *dictionary)
 // Returns number of words in dictionary if loaded, else 0 if not yet loaded
 unsigned int size(void)
 {
-    // TODO
+    // nested for loops to loop through index of table and then linked list along there
+    for (int i = 0; i < N; i++)
+    {
+        for (node *trav = table[i]; trav != NULL; trav->next)
+    }
     return 0;
 }
 
