@@ -35,7 +35,18 @@ unsigned int hash(const char *word)
 // Loads dictionary into memory, returning true if successful, else false
 bool load(const char *dictionary)
 {
-    // TODO
+    // Open dictionary file
+    FILE *dict = fopen(dictionary, 'r');
+    if (dict == NULL)
+    {
+        //couldn't open the dictionary
+        return false;
+    }
+
+    // read each line (look for the \n char)
+    
+    // add each line to the hash table (starting with alphabet + linked list)
+    // close dictionary file
     return false;
 }
 
