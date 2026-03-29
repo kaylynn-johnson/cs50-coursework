@@ -98,7 +98,7 @@ unsigned int size(void)
 {
     // nested for loops to loop through index of table and then linked list along there
     // think of creating a global variable that is incremented when loading
-    int counter = 0;
+    unsigned int counter = 0;
     for (int i = 0; i < N; i++)
     {
         for (node *trav = table[i]; trav != NULL; trav = trav->next)
