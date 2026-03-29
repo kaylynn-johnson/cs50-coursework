@@ -76,7 +76,7 @@ unsigned int hash(const char *word)
         return toupper(word[0]) - 'A';
     }
     //now look for first two letters (add word - 'A' of first and second letters)
-    return (toupper(word[0]) - 'A') + (toupper(word[1]) - 'A');
+    return ((toupper(word[0]) - 'A') * 26) + (toupper(word[1]) - 'A') + 26;
 }
 
 // Loads dictionary into memory, returning true if successful, else false
