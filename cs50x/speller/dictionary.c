@@ -66,7 +66,7 @@ bool load(const char *dictionary)
     int counter = 0;
     while(fread(letter, 1, 1, dict) != 0)
     {
-        // ready letter by letter
+        // reading letter by letter
         if (*letter == '\n')
         {
             // reached the end of a word
