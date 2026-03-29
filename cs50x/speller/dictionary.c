@@ -87,9 +87,15 @@ bool load(const char *dictionary)
 unsigned int size(void)
 {
     // nested for loops to loop through index of table and then linked list along there
+    // think of creating a global variable that is incremented when loading
+    
+    counter = 0;
     for (int i = 0; i < N; i++)
     {
         for (node *trav = table[i]; trav != NULL; trav = trav->next)
+        {
+            counter++;
+        }
     }
     return 0;
 }
