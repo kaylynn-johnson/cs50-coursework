@@ -71,13 +71,13 @@ bool load(const char *dictionary)
         if (counter == 0)
         {
             //create a new node
-            node *found_word = malloc(sizeof(node));
+            found_word = malloc(sizeof(node));
             if (found_word == NULL)
             {
                 return false:
             }
-            found_word->word[counter] = *letter;
-            counter++;
+            // found_word->word[counter] = *letter;
+            // counter++;
         }
 
         if (*letter == '\n')
