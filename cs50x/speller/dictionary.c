@@ -2,6 +2,8 @@
 
 #include <ctype.h>
 #include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #include "dictionary.h"
 
@@ -26,7 +28,11 @@ bool check(const char *word)
     node *trav = table[index];
     while (trav != NULL)
     {
-        
+        if (trav->word == tolower(word))
+        {
+            return true;
+        }
+        trav = trav->next;
     }
     return false;
 }
