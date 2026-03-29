@@ -67,24 +67,34 @@ bool load(const char *dictionary)
     while(fread(letter, 1, 1, dict) != 0)
     {
         // reading letter by letter
+        if (counter == 0)
+        {
+            //create a new node
+            node *found_word = malloc(sizeof(node));
+            if (found_word == NULL)
+            {
+                return false:
+            }
+            found_word
+        }
+
         if (*letter == '\n')
         {
             // reached the end of a word
             // don't need to add the new line character to the found_word
             // now add the final word to the hash
             int index = hash(running_word);
-            node *found_word = malloc(sizeof(node));
-            if (found_word == NULL)
-            {
-                return false;
-            }
             found_word->word = running_word;
             found_word->next = table[index];
             table[index] = found_word;
             counter = 0;
         }
-        running_word[counter] = *letter;
-        counter++;
+        else
+        {
+            found_word->word[counter] = *letter;
+            counter++;
+        }
+
     }
     free(letter);
     // add each line to the hash table (starting with alphabet + linked list)
