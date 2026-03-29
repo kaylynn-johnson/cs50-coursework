@@ -28,9 +28,8 @@ node *table[N];
 // Returns true if word is in dictionary, else false
 bool check(const char *word)
 {
-    // get hash for the word to know which table index to look at
-    int index = hash(word);
-    node *trav = table[index];
+    // make word lowercase to compare with dictionary words
+    // keep the nul character at the end of the 
     int len = strlen(word);
     char lowercase_word[len + 1];
     for (int i = 0; i < len + 1; i++)
@@ -39,7 +38,10 @@ bool check(const char *word)
         lowercase_word[i] = tolower(word[i]);
 
     }
-    bool misspelled = false;
+
+    // loop through the linked list at the appropriate hash bucket
+    int index = hash(word);
+    node *trav = table[index];
     while (trav != NULL)
     {
         if (strcmp(trav->word, lowercase_word) == 0)
@@ -54,14 +56,6 @@ bool check(const char *word)
 // Hashes word to a number
 unsigned int hash(const char *word)
 {
-    // first two letters of word
-    // if (strlen(word) == 1)
-    // {
-    //     return toupper(word[0]) - 'A';
-    // }
-    // //now look for first two letters (add word - 'A' of first and second letters)
-    // return ((toupper(word[0]) - 'A') * 26) + (toupper(word[1]) - 'A') + 26;
-
     // length of word + first letter of word
     return ((strlen(word) - 1) + ((toupper(word[0]) - 'A') * 26));
 }
@@ -83,7 +77,8 @@ bool load(const char *dictionary)
     {
         return false;
     }
-    // char *running_word[LENGTH+1];
+
+    // initialize important variables
     int counter = 0;
     node *found_word;
     while(fread(letter, 1, 1, dict) != 0)
@@ -97,30 +92,32 @@ bool load(const char *dictionary)
             {
                 return false;
             }
-            // found_word->word[counter] = *letter;
-            // counter++;
         }
 
         if (*letter == '\n')
         {
             // reached the end of a word
-            // don't need to add the new line character to the found_word
-            // now add the final word to the hash
+            // add end string character
             found_word->word[counter] = '\0';
+
+            // find index in hash for word
             int index = hash(found_word->word);
+
+            // prepend node to linked list at appropriate hash value
             found_word->next = table[index];
             table[index] = found_word;
             counter = 0;
         }
         else
         {
+            // not the end of the word
             found_word->word[counter] = *letter;
             counter++;
         }
 
     }
     free(letter);
-    // add each line to the hash table (starting with alphabet + linked list)
+
     // close dictionary file
     fclose(dict);
     return true;
@@ -130,7 +127,6 @@ bool load(const char *dictionary)
 unsigned int size(void)
 {
     // nested for loops to loop through index of table and then linked list along there
-    // think of creating a global variable that is incremented when loading
     unsigned int counter = 0;
     for (int i = 0; i < N; i++)
     {
