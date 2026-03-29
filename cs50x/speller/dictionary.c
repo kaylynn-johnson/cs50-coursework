@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "dictionary.h"
 
@@ -28,7 +29,7 @@ bool check(const char *word)
     node *trav = table[index];
     while (trav != NULL)
     {
-        if (trav->word == tolower(word))
+        if (strcmp(trav->word, tolower(word)) == 0)
         {
             return true;
         }
