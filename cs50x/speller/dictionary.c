@@ -21,7 +21,13 @@ node *table[N];
 // Returns true if word is in dictionary, else false
 bool check(const char *word)
 {
-    // TODO
+    // get hash for the word to know which table index to look at
+    int index = hash(word);
+    node *trav = table[index];
+    while (trav != NULL)
+    {
+        
+    }
     return false;
 }
 
