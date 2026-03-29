@@ -27,14 +27,16 @@ bool check(const char *word)
     // get hash for the word to know which table index to look at
     int index = hash(word);
     node *trav = table[index];
+    char lowercase_word[strlen(word) + 1];
     while (trav != NULL)
     {
         for (int i = 0; word[i] != '\0'; i++)
         {
-            //compare character by character
-            
+            //make word lowercase
+            lowercase_word[i] = tolower(word[i]);
+
         }
-        if (strcmp(trav->word, tolower(word)) == 0)
+        if (strcmp(trav->word, lowercase_word) == 0)
         {
             return true;
         }
