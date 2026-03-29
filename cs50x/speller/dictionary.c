@@ -102,6 +102,16 @@ unsigned int size(void)
 // Unloads dictionary from memory, returning true if successful, else false
 bool unload(void)
 {
-    // 
+    // nested for loop again for each part of hash table
+    for (int i = 0; i < N; i++)
+    {
+        node *trav = table[i];
+        while (trav != NULL)
+        {
+            node *tmp = trav;
+            trav = trav->next;
+            free(tmp);
+        }
+    }
     return false;
 }
