@@ -18,7 +18,9 @@ typedef struct node
 // TODO: Choose number of buckets in hash table
 //const unsigned int N = 26;
 // going for first two letters (0->25 for one letter words tho)
-const unsigned int N = 702; //26 + (26*26)
+// const unsigned int N = 702; //26 + (26*26)
+// going for length of word and first letter (0->44 words that start with a)
+const unsigned int N = 1170;
 
 // Hash table
 node *table[N];
@@ -52,13 +54,16 @@ bool check(const char *word)
 // Hashes word to a number
 unsigned int hash(const char *word)
 {
-    // TODO: Improve this hash function
-    if (strlen(word) == 1)
-    {
-        return toupper(word[0]) - 'A';
-    }
-    //now look for first two letters (add word - 'A' of first and second letters)
-    return ((toupper(word[0]) - 'A') * 26) + (toupper(word[1]) - 'A') + 26;
+    // first two letters of word
+    // if (strlen(word) == 1)
+    // {
+    //     return toupper(word[0]) - 'A';
+    // }
+    // //now look for first two letters (add word - 'A' of first and second letters)
+    // return ((toupper(word[0]) - 'A') * 26) + (toupper(word[1]) - 'A') + 26;
+
+    // length of word + first letter of word
+    return (strlen(word) * (toupper(word[0]) - 'A'));
 }
 
 // Loads dictionary into memory, returning true if successful, else false
