@@ -39,7 +39,8 @@ bool check(const char *word)
     bool misspelled = false;
     while (trav != NULL)
     {
-        printf("Comparing %s to %s in dictionary\n", word, trav->word);
+        // printf("Comparing %s to %s in dictionary\n", word, trav->word);
+        misspelled = false;
         for (int i = 0; i < len; i++)
         {
             if (trav->word[i] != tolower(word[i]))
