@@ -63,7 +63,7 @@ unsigned int hash(const char *word)
     // return ((toupper(word[0]) - 'A') * 26) + (toupper(word[1]) - 'A') + 26;
 
     // length of word + first letter of word
-    return (strlen(word) * (toupper(word[0]) - 'A'));
+    return ((strlen(word) - 1) + ((toupper(word[0]) - 'A') * 26));
 }
 
 // Loads dictionary into memory, returning true if successful, else false
