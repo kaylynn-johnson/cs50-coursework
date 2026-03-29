@@ -29,6 +29,11 @@ bool check(const char *word)
     node *trav = table[index];
     while (trav != NULL)
     {
+        for (int i = 0; word[i] != '\0'; i++)
+        {
+            //compare character by character
+            
+        }
         if (strcmp(trav->word, tolower(word)) == 0)
         {
             return true;
