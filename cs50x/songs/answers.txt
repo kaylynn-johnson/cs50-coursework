@@ -1,0 +1,2 @@
+1. I would characterize their audio aura by greating a factor that uses the danceability, energy, loudness, speechiness, valence and temp to create a single aura metric that corresponds to an english term based on the number.
+2. One hundred songs over the entire year is not very representative of how the listener felt during different parts of the year. I would propose adding a time element to the database to capture this.
