@@ -2,42 +2,42 @@
 <html lang="en">
     <head>
         <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Karla:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
         <title>Advanced Search</title>
     </head>
-    <body style="font-family: Google Sans;">
-        <div style="display: grid; grid-template-columns: auto 100px; align-items: center;">
-            <div style="font-size: 24px">
+    <body class="google-font">
+        <div id="advanced-header">
+            <div id="advanced-google">
                 Google
             </div>
-            <div style="text-align: end; font-size: 18px;">
-                <a href="index.html" style="text-decoration: none; color: black">Search</a>
+            <div id="advanced-nav">
+                <a href="index.html" class="plain-link">Search</a>
             </div>
         </div>
-        <hr>
-        <div style="text-align: left;">
-            <div style="font-size: 32px; font-weight: 400; margin-bottom: 10px;">Advanced Search</div>
-            <div style="font-size: 24px; margin-bottom: 10px;">Find pages with</div>
+        <div class="left-align">
+            <div id="advanced-search-text">Advanced Search</div>
+            <div id="advanced-find-pages">Find pages with</div>
             <form action="https://www.google.com/search">
-                <div style="display: grid; grid-template-columns: 150px 450px; grid-gap: 15px; grid-template-rows: 60px 60px 60px 60px; align-items: center;">
+                <div id="advanced-search-fields">
                     <div>All these words:</div>
                     <div>
-                        <input type="text" name="as_q" style="width: 400px; height: 40px; border-radius: 5px;">
+                        <input type="text" name="as_q" class="advanced-search-bar">
                     </div>
                     <div>This exact word or phrase:</div>
                     <div>
-                        <input type="text" name="as_epq" style="width: 400px; height: 40px; border-radius: 5px;">
+                        <input type="text" name="as_epq" class="advanced-search-bar">
                     </div>
                     <div>Any of these words:</div>
                     <div>
-                        <input type="text" name="as_oq" style="width: 400px; height: 40px; border-radius: 5px;">
+                        <input type="text" name="as_oq" class="advanced-search-bar">
                     </div>
                     <div>None of these words:</div>
                     <div>
-                        <input type="text" name="as_eq" style="width: 400px; height: 40px; border-radius: 5px;">
+                        <input type="text" name="as_eq" class="advanced-search-bar">
                     </div>
                 </div>
-                <div style="text-align: end; width: 575px; margin-top: 15px;">
-                    <input type="submit" value="Advanced Search" style="text-align: end; border: none; font-size: 16px;">
+                <div id="advanced-submit-box">
+                    <input type="submit" value="Advanced Search" id="advanced-submit-btn">
                 </div>
             </form>
         </div>

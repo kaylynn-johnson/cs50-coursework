@@ -1,0 +1,128 @@
+.google-font {
+    font-family: Google Sans;
+}
+
+#main-nav {
+    display: grid; 
+    grid-template-columns: auto 120px 150px;
+}
+
+.end-align {
+    text-align: end;
+}
+
+.center-align {
+    text-align: center;
+}
+
+.left-align {
+    text-align: left;
+    padding-left: 80px;
+}
+
+.plain-link {
+    text-decoration: none; 
+    color: black;
+}
+
+.google-logo {
+    text-align: center; 
+    font-size: 50px; 
+    margin-top: 100px; 
+    margin-bottom: 20px;
+    color: #0b57d0;
+}
+
+.search-bar {
+    height: 35px; 
+    width: 500px; 
+    border-radius: 20px; 
+    margin: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 0.5px solid black;
+}
+
+.submit-search {
+    border: 1px solid transparent;
+    font-size: 16px;
+}
+
+.submit-search:hover {
+    border: 1px solid black;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.advanced-search-bar {
+    width: 400px; 
+    height: 40px; 
+    border: 0.5px solid grey;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#advanced-search-fields {
+    display: grid; 
+    grid-template-columns: 150px 450px; 
+    grid-gap: 15px; 
+    grid-template-rows: 60px 60px 60px 60px; 
+    align-items: center;
+    color: #6B6A69;
+}
+
+#advanced-header {
+    display: grid; 
+    grid-template-columns: auto 100px; 
+    align-items: center;
+    padding-left: 80px;
+}
+
+#advanced-google {
+    font-size: 24px;
+    margin-top: 20px;
+    color: #0b57d0;
+    font-weight: 500;
+}
+
+#advanced-nav {
+    text-align: end; 
+    font-size: 18px;
+}
+
+#advanced-search-text {
+    font-size: 32px; 
+    font-weight: 400; 
+    margin-bottom: 10px;
+    margin-top: 50px;
+    color: #4C4E52;
+}
+
+#advanced-find-pages {
+    font-size: 24px; 
+    margin-bottom: 10px;
+    margin-top: 30px;
+    color: #4C4E52;
+}
+
+#advanced-submit-box {
+    text-align: end; 
+    width: 590px; 
+    margin-top: 15px;
+}
+
+#advanced-submit-btn {
+    text-align: end; 
+    border: 1px solid transparent;
+    border-radius: 40px;
+    padding: 15px;
+    font-size: 16px;
+    background-color: #0b57d0;
+    color: white;
+}
+
+#advanced-submit-btn:hover {
+    border: 1px solid black;
+    cursor: pointer;
+}
