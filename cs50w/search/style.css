@@ -75,7 +75,7 @@
 #advanced-header {
     display: grid; 
     grid-template-columns: auto 100px; 
-    align-items: center;
+    align-items: top;
     padding-left: 80px;
 }
 
