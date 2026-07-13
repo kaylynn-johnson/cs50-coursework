@@ -3,9 +3,24 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django import forms
 
-from .models import User
+from .models import User, Bid, Comment, AuctionListing
 
+class NewListingForm(forms.ModelForm):
+    class Meta:
+        model = AuctionListing
+        fields = ['title', 'description', 'starting_price', 'url_image', 'category']
+
+class NewBidForm(forms.ModelForm):
+    class Meta:
+        model = Bid
+        fields = ['price']
+    
+class NewCommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['text']
 
 def index(request):
     return render(request, "auctions/index.html")
@@ -61,3 +76,23 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "auctions/register.html")
+
+
+def create_listing(request):
+    if request.method == "POST":
+        # user submitted the form for the listing
+        form = NewListingForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # redirect to index
+            return HttpResponseRedirect(reverse("index"))
+        
+        #form is not valid
+        return render(request, "auctions/create.html", {
+            "form": form
+        })
+    
+    # user got here by GET
+    return render(request, "auctions/create.html", {
+        "form": NewListingForm()
+    })
