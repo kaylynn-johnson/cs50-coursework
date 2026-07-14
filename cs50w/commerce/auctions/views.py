@@ -23,7 +23,10 @@ class NewCommentForm(forms.ModelForm):
         fields = ['text']
 
 def index(request):
-    return render(request, "auctions/index.html")
+    # determine all of the auction listings that are active
+    return render(request, "auctions/index.html", {
+        "active_listings": AuctionListing.objects.filter(active__exact=True)
+    })
 
 
 def login_view(request):
@@ -83,7 +86,9 @@ def create_listing(request):
         # user submitted the form for the listing
         form = NewListingForm(request.POST)
         if form.is_valid():
-            form.save()
+            new_listing = form.save(commit=False)
+            new_listing.owner = request.user
+            new_listing.save()
             # redirect to index
             return HttpResponseRedirect(reverse("index"))
         
