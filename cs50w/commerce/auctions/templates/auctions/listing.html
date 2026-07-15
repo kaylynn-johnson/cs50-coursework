@@ -1,0 +1,43 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h1>{{ listing_info.title }}</h1>
+    <h2>${{ price }}</h2>
+
+    <div>{{ listing_info.description }}</div>
+
+    {% if listing_info.url_image %}
+        <img src="{{ listing_info.url_image }}" alt="{{ listing_info.title }}" width="400px">
+    {% endif %}
+
+    <h3>Bids</h3>
+    <ul>
+        {% for bid_single in bids %}
+            <li>${{ bid_single.price }} by {{ bid_single.user.username }}</li>
+        {% empty %}
+            <li>No bids</li>
+        {% endfor %}
+    </ul>
+    <form action="{{ listing_info.id }}/bid" method="post">
+        {% csrf_token %}
+        {{ bid_form }}
+        <input type="submit">
+    </form>
+
+    <h3>Comments</h3>
+    <ul>
+        {% for comment in comments %}
+            <li>{{ comment.user.username }}: {{ comment.text }}</li>
+        {% empty %}
+            <li>No comments</li>
+        {% endfor %}
+    </ul>
+    <form action="{{ listing_info.id }}/comment" method="post">
+        {% csrf_token %}
+        {{ comment_form }}
+        <input type="submit">
+    </form>
+
+{% endblock %}
+
+
