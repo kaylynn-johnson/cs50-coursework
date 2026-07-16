@@ -15,7 +15,7 @@ class User(AbstractUser):
         return f"{self.username}"
 
 class AuctionListing(models.Model):
-    starting_price = models.FloatField()
+    starting_price = models.IntegerField()
     title = models.CharField(max_length=100)
     description = models.TextField()
     url_image = models.URLField(blank=True)
@@ -37,14 +37,13 @@ class Bid(models.Model):
 class Comment(models.Model):
     text = models.CharField(max_length=128)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    timestamp = models.DateTimeField(auto_now_add=True)
     listing = models.ForeignKey(AuctionListing, on_delete=models.CASCADE, related_name="comments")
     
     def __str__(self):
         return f"{self.timestamp}: comment by {self.user}"
 
 class Wishlist(models.Model):
-    listing = models.ForeignKey(AuctionListing, on_delete=models.CASCADE, related_name="wishlist")
+    listing = models.ForeignKey(AuctionListing, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
