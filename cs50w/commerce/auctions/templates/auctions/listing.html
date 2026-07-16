@@ -18,7 +18,7 @@
             <li>No bids</li>
         {% endfor %}
     </ul>
-    <form action="{{ listing_info.id }}/bid" method="post">
+    <form action="{% url 'auctions:bid' listing_info.id %}" method="post">
         {% csrf_token %}
         {{ bid_form }}
         <input type="submit">
@@ -32,11 +32,23 @@
             <li>No comments</li>
         {% endfor %}
     </ul>
-    <form action="{{ listing_info.id }}/comment" method="post">
+    <form action="{% url 'auctions:comment' listing_info.id %}" method="post">
         {% csrf_token %}
         {{ comment_form }}
         <input type="submit">
     </form>
+
+    {% if on_wishlist %}
+        <form action="{% url 'auctions:remove_wishlist' listing_info.id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Remove From Wishlist">
+        </form>
+    {% else %}
+        <form action="{% url 'auctions:add_wishlist' listing_info.id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Add to Wishlist">
+        </form>
+    {% endif %}
 
 {% endblock %}
 

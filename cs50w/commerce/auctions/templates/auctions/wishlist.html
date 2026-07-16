@@ -1,0 +1,26 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h1>{{ user.username.capitalize }}'s Wishlist</h1>
+
+    <ul>
+        {% for item in wishlist %}
+            <li>{{ item.listing.title }}</li>
+            <ul>
+                <li>{{ item.listing.description }}</li>
+                {% if item.listing.url_image %}
+                    <li><img src="{{ item.listing.url_image }}" alt="{{ item.listing.title}}" width="200px"></li>
+                {% endif %}
+                <li>
+                    <form action="{% url 'auctions:remove_wishlist' item.listing.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Remove from Wishlist">
+                    </form>
+                </li>
+            </ul>
+        {% empty %}
+            <li>No items in wishlist</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

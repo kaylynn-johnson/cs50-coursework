@@ -11,9 +11,9 @@
             <ul>
                 <li>{{ listing.description }}</li>
                 {% if not listing.max_price %}
-                    <li>Set price of ${{ listing.starting_price }}</li>
+                    <li>Price set at ${{ listing.starting_price }}</li>
                 {% else %}
-                    <li>Set price of ${{ listing.max_price }}</li>
+                    <li>Bidding currently at ${{ listing.max_price }}</li>
                 {% endif %}
                 {% if listing.url_image %}
                     <img src="{{ listing.url_image }}" alt="{{ listing.title }}" width="200px">

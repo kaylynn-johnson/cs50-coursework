@@ -122,10 +122,12 @@ def place_bid(request, listing_id):
                 new_bid.user = request.user
                 new_bid.listing = AuctionListing.objects.get(pk=listing_id)
                 new_bid.save()
-                error = ""
             else:
                 # show error
-                error = "Bid is not high enough"
+                return render(request, "auctions/error.html", {
+                    "error": f"Bid for {AuctionListing.objects.get(pk=listing_id).title} is not high enough",
+                    "listing_id": listing_id
+                })
     
     #user got here for GET
     return HttpResponseRedirect(reverse("auctions:listing", args=(listing_id,)))
@@ -140,6 +142,10 @@ def listing(request, listing_id):
         price = AuctionListing.objects.get(pk=listing_id).starting_price
     else:
         price = bids_all.aggregate(max_price=models.Max('price'))['max_price']
+
+    # determine if item is on wishlist
+    on_wishlist = Wishlist.objects.filter(user=request.user, listing=AuctionListing.objects.get(pk=listing_id)).exists()
+
     return render(request, "auctions/listing.html", {
         "listing_info": AuctionListing.objects.get(pk=listing_id),
         "price": price,
@@ -147,7 +153,8 @@ def listing(request, listing_id):
         "bid_form": NewBidForm(),
         "error": "",
         "comments": AuctionListing.objects.get(pk=listing_id).comments.all(),
-        "comment_form": NewCommentForm()
+        "comment_form": NewCommentForm(),
+        "on_wishlist": on_wishlist
     })
 
 
@@ -163,7 +170,14 @@ def comment(request, listing_id):
 
     # redirect back to listing page
     return HttpResponseRedirect(reverse("auctions:listing", args=(listing_id,)))
-        
+
+
+def user_wishlist(request):
+    # can get here by GET
+    return render(request, "auctions/wishlist.html", {
+        "user": request.user,
+        "wishlist": Wishlist.objects.filter(user=request.user)
+    })
 
 def add_to_wishlist(request, listing_id):
     if request.method == "POST":
@@ -171,6 +185,11 @@ def add_to_wishlist(request, listing_id):
         wishlist_entry = Wishlist.objects.create(listing=AuctionListing.objects.get(pk=listing_id), user=request.user)
         wishlist_entry.save()
 
-    return render(request, "auctions/wishlist.html", {
-        "wishlist": User.objects.get(pk=request.user.id).wishlist
-    })
+    return HttpResponseRedirect(reverse("auctions:wishlist"))
+
+def remove_from_wishlist(request, listing_id):
+    if request.method == "POST":
+        wishlist_entry = Wishlist.objects.filter(user=request.user, listing=AuctionListing.objects.get(pk=listing_id))
+        wishlist_entry.delete()
+
+    return HttpResponseRedirect(reverse("auctions:wishlist"))
