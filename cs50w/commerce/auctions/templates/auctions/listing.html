@@ -1,45 +1,88 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    {% if listing_info.active %}
-        <p>Active</p>
-    {% else %}
-        <p>Inactive</p>
-    {% endif %}
-    <h1>{{ listing_info.title }}</h1>
-    <h2>${{ price }}</h2>
 
-    <div>{{ listing_info.description }}</div>
+    <div class="listing-eyebrow">
+        <div class="active">
+            {% if listing_info.active %}
+                Active
+            {% else %}
+                Inactive
+            {% endif %}
+        </div>
+        <div class="wishlist">
+            {% if on_wishlist %}
+                <form action="{% url 'auctions:remove_wishlist' listing_info.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Remove From Wishlist">
+                </form>
+            {% else %}
+                <form action="{% url 'auctions:add_wishlist' listing_info.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Add to Wishlist">
+                </form>
+            {% endif %}
+        </div>
+    </div>
 
-    {% if listing_info.url_image %}
-        <img src="{{ listing_info.url_image }}" alt="{{ listing_info.title }}" width="400px">
-    {% endif %}
+    <div class="listing-eyebrow">
+        <div>
+            <div class="title">{{ listing_info.title }}</div>
+            <div class="description">{{ listing_info.description }}</div>
+        </div>
+        <div class="price">
+            ${{ price }}
+        </div>
+    </div>
 
-    <h3>Bids</h3>
-    {% if listing_info.active %}
-        {% if owner %}
-            <form action="{% url 'auctions:close_bid' listing_info.id %}" method="post">
-                {% csrf_token %}
-                <input type="submit" value="Close Bidding">
-            </form>
+    <div>
+        {% if listing_info.url_image %}
+            <img src="{{ listing_info.url_image }}" alt="{{ listing_info.title }}" width="400px">
+        {% else %}
+            <img src="https://4ddig.tenorshare.com/images/photo-recovery/images-not-found.webp" alt="Image not Found" width="400px">
         {% endif %}
-        <ul>
-            {% for bid_single in bids %}
-                <li>${{ bid_single.price }} by {{ bid_single.user.username }}</li>
-            {% empty %}
-                <li>No bids</li>
-            {% endfor %}
-        </ul>
-        <form action="{% url 'auctions:bid' listing_info.id %}" method="post">
-            {% csrf_token %}
-            {{ bid_form }}
-            <input type="submit">
-        </form>
-    {% elif winner %}
-        <h4>Congratulations! You won {{ listing_info.title }}</h4>
-    {% else %}
-        <h4>This listing is closed</h4>
-    {% endif %}
+    </div>
+
+    <div class="listing-eyebrow">
+        <div style="font-size: 20px;">Bids</div>
+        <div>
+            {% if listing_info.active and owner %}
+                <form action="{% url 'auctions:close_bid' listing_info.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Close Bidding">
+                </form>
+            {% endif %}
+        </div>
+    </div>
+
+    <div>
+        {% if listing_info.active %}
+            <ul>
+                {% for bid_single in bids %}
+                    <li>${{ bid_single.price }} by {{ bid_single.user.username }}</li>
+                {% empty %}
+                    <li>No bids</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <div>
+        {% if listing_info.active %}
+            <form action="{% url 'auctions:bid' listing_info.id %}" method="post">
+                {% csrf_token %}
+                New Bid {{ bid_form.price }}
+                <input type="submit">
+            </form>
+        {% elif winner %}
+            <h4>Congratulations! You won {{ listing_info.title }}</h4>
+        {% else %}
+            <h4>This listing is closed</h4>
+        {% endif %}
+    </div>
+    
+        
+        
 
     <h3>Comments</h3>
     <ul>
@@ -55,17 +98,7 @@
         <input type="submit">
     </form>
 
-    {% if on_wishlist %}
-        <form action="{% url 'auctions:remove_wishlist' listing_info.id %}" method="post">
-            {% csrf_token %}
-            <input type="submit" value="Remove From Wishlist">
-        </form>
-    {% else %}
-        <form action="{% url 'auctions:add_wishlist' listing_info.id %}" method="post">
-            {% csrf_token %}
-            <input type="submit" value="Add to Wishlist">
-        </form>
-    {% endif %}
+    
 
 {% endblock %}
 

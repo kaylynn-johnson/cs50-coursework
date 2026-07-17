@@ -1,3 +1,57 @@
 body {
     padding: 10px;
 }
+
+h2 {
+    margin-bottom: 30px;
+}
+
+.listing {
+    display: grid;
+    grid-template-columns: 200px auto;
+    margin-bottom: 30px;
+}
+
+.title {
+    font-size: 20px;
+    padding-top: 5px;
+}
+
+.description {
+    font-size: 16px;
+    color: gray;
+    padding-top: 5px;
+}
+
+.price {
+    font-size: 30px;
+    font-weight: 500;
+    padding-top: 5px;
+}
+
+.bids-comments {
+    font-size: 14px;
+    color: gray;
+    padding-top: 5px;
+}
+
+.form {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.listing-eyebrow {
+    display: grid;
+    grid-template-columns: auto auto;
+    width: 400px;
+}
+
+.active {
+    font-size: 16px;
+    color: gray;
+    font-weight: 500;
+}
+
+.wishlist {
+    text-align: end;
+}

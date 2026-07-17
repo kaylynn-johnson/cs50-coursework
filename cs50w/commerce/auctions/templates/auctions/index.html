@@ -3,26 +3,35 @@
 {% block body %}
     <h2>Active Listings</h2>
 
-    <ul>
-        {% for listing in active_listings %}
-            <li>
-                <a href="{% url 'auctions:listing' listing.id %}">{{ listing.title }}</a>
-            </li>
-            <ul>
-                <li>{{ listing.description }}</li>
-                {% if not listing.max_price %}
-                    <li>Price set at ${{ listing.starting_price }}</li>
-                {% else %}
-                    <li>Bidding currently at ${{ listing.max_price }}</li>
-                {% endif %}
+    {% for listing, max_price, count_bids, count_comments in active_listings %}
+        <div class="listing">
+            <div>
                 {% if listing.url_image %}
                     <img src="{{ listing.url_image }}" alt="{{ listing.title }}" width="200px">
+                {% else %}
+                    <img src="https://4ddig.tenorshare.com/images/photo-recovery/images-not-found.webp" alt="Image not Found" width="200px">
                 {% endif %}
-            </ul>
-        {% empty %}
-            <li>No active listings.</li>
-        {% endfor %}
-    </ul>
+            </div>
+            <div>
+                <div class="title"><a href="{% url 'auctions:listing' listing.id %}">{{ listing.title.capitalize }}</a></div>
+                <div class="description">{{ listing.description }}</div>
+                <div class="price">
+                    {% if not max_price.max_price %}
+                        ${{ listing.starting_price }}
+                    {% else %}
+                        ${{ max_price.max_price }}
+                    {% endif %}
+                </div>
+                <div class="bids-comments">
+                    {{ count_bids.count_bids }} bids  &vert;  {{ count_comments.count_comments }} comments
+                </div>
+            </div>
+            <li>
+        </div>
+        
+    {% empty %}
+        <li>No active listings.</li>
+    {% endfor %}
 
 
 {% endblock %}
