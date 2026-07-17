@@ -27,8 +27,8 @@
 
     <div class="listing-eyebrow">
         <div>
-            <div class="title">{{ listing_info.title }}</div>
-            <div class="description">{{ listing_info.description }}</div>
+            <div class="title-listing">{{ listing_info.title.capitalize }}</div>
+            <div class="description-listing">{{ listing_info.description }}</div>
         </div>
         <div class="price">
             ${{ price }}
@@ -44,8 +44,8 @@
     </div>
 
     <div class="listing-eyebrow">
-        <div style="font-size: 20px;">Bids</div>
-        <div>
+        <div class="title-listing">Bids</div>
+        <div class="wishlist">
             {% if listing_info.active and owner %}
                 <form action="{% url 'auctions:close_bid' listing_info.id %}" method="post">
                     {% csrf_token %}
@@ -59,7 +59,7 @@
         {% if listing_info.active %}
             <ul>
                 {% for bid_single in bids %}
-                    <li>${{ bid_single.price }} by {{ bid_single.user.username }}</li>
+                    <li>${{ bid_single.price }} by {{ bid_single.user.username.capitalize }}</li>
                 {% empty %}
                     <li>No bids</li>
                 {% endfor %}
@@ -71,34 +71,39 @@
         {% if listing_info.active %}
             <form action="{% url 'auctions:bid' listing_info.id %}" method="post">
                 {% csrf_token %}
-                New Bid {{ bid_form.price }}
+                New Bid: {{ bid_form.price }}
                 <input type="submit">
             </form>
         {% elif winner %}
-            <h4>Congratulations! You won {{ listing_info.title }}</h4>
+            <h4>Congratulations! You won {{ listing_info.title.capitalize }}</h4>
         {% else %}
             <h4>This listing is closed</h4>
         {% endif %}
     </div>
     
         
-        
+    <div class="listing-eyebrow">
+        <div class="title-listing">Comments</div>
+        <div class="wishlist"></div>
+    </div>
 
-    <h3>Comments</h3>
-    <ul>
-        {% for comment in comments %}
-            <li>{{ comment.user.username }}: {{ comment.text }}</li>
-        {% empty %}
-            <li>No comments</li>
-        {% endfor %}
-    </ul>
-    <form action="{% url 'auctions:comment' listing_info.id %}" method="post">
-        {% csrf_token %}
-        {{ comment_form }}
-        <input type="submit">
-    </form>
+    <div>
+        <ul>
+            {% for comment in comments %}
+                <li>{{ comment.user.username.capitalize }}: {{ comment.text }}</li>
+            {% empty %}
+                <li>No comments</li>
+            {% endfor %}
+        </ul>
+    </div>
 
-    
+    <div>
+        <form action="{% url 'auctions:comment' listing_info.id %}" method="post">
+            {% csrf_token %}
+            New comment: {{ comment_form.text }}
+            <input type="submit">
+        </form>
+    </div>    
 
 {% endblock %}
 

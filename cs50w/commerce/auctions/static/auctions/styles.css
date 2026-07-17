@@ -44,6 +44,8 @@ h2 {
     display: grid;
     grid-template-columns: auto auto;
     width: 400px;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .active {
@@ -54,4 +56,14 @@ h2 {
 
 .wishlist {
     text-align: end;
+}
+
+.title-listing {
+    font-size: 26px;
+    font-weight: 400;
+}
+
+.description-listing {
+    font-size: 18px;
+    color: gray;
 }
