@@ -27,6 +27,7 @@ h2 {
     font-size: 30px;
     font-weight: 500;
     padding-top: 5px;
+    text-align: center;
 }
 
 .bids-comments {
@@ -66,4 +67,10 @@ h2 {
 .description-listing {
     font-size: 18px;
     color: gray;
+}
+
+.button {
+    align-items: center;
+    padding-top: 10px;
+    width: 400px;
 }

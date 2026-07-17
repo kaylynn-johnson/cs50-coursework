@@ -210,9 +210,14 @@ def comment(request, listing_id):
 @login_required
 def user_wishlist(request):
     # can get here by GET
+    separate_lists = zip(
+        Wishlist.objects.filter(user=request.user),
+        Wishlist.objects.filter(user=request.user).annotate(max_price=models.Max('listing__bids__price'))
+    )
+
     return render(request, "auctions/wishlist.html", {
         "user": request.user,
-        "wishlist": Wishlist.objects.filter(user=request.user)
+        "wishlist": separate_lists
     })
 
 @login_required

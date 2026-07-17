@@ -3,26 +3,40 @@
 {% block body %}
     <h1>{{ user.username.capitalize }}'s Wishlist</h1>
 
-    <ul>
-        {% for item in wishlist %}
-            <li>
-                <a href="{% url 'auctions:listing' item.listing.id %}">{{ item.listing.title }}</a>
-            </li>
-            <ul>
-                <li>{{ item.listing.description }}</li>
-                {% if item.listing.url_image %}
-                    <li><img src="{{ item.listing.url_image }}" alt="{{ item.listing.title}}" width="200px"></li>
+    {% for item, price in wishlist %}
+         <div class="listing-eyebrow">
+            <div>
+                <div class="title-listing">
+                    <a href="{% url 'auctions:listing' item.listing.id %}">{{ item.listing.title.capitalize }}</a>
+                </div>
+                <div class="description-listing">{{ item.listing.description }}</div>
+            </div>
+            <div class="price">
+                {% if not price.max_price %}
+                    ${{ item.listing.starting_price }}
+                {% else %}
+                    ${{ price.max_price }}
                 {% endif %}
-                <li>
-                    <form action="{% url 'auctions:remove_wishlist' item.listing.id %}" method="post">
-                        {% csrf_token %}
-                        <input type="submit" value="Remove from Wishlist">
-                    </form>
-                </li>
-            </ul>
-        {% empty %}
-            <li>No items in wishlist</li>
-        {% endfor %}
-    </ul>
+            </div>
+        </div>
+
+        <div>
+            {% if listing_info.url_image %}
+                <img src="{{ listing_info.url_image }}" alt="{{ listing_info.title }}" width="400px">
+            {% else %}
+                <img src="https://4ddig.tenorshare.com/images/photo-recovery/images-not-found.webp" alt="Image not Found" width="400px">
+            {% endif %}
+        </div>
+        
+        <div class="button">
+            <form action="{% url 'auctions:remove_wishlist' item.listing.id %}" method="post" style="text-align: center;">
+                {% csrf_token %}
+                <input type="submit" value="Remove from Wishlist">
+            </form>
+        </div>
+        <hr style="width: 400px;">
+    {% empty %}
+        <h2>No items in wishlist</h2>
+    {% endfor %}
 
 {% endblock %}
