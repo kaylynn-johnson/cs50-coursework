@@ -32,7 +32,7 @@ class Bid(models.Model):
     listing = models.ForeignKey(AuctionListing, on_delete=models.CASCADE, related_name="bids")
 
     def __str__(self):
-        return f"{self.user} bid ${self.price}"
+        return f"{self.user} bid ${self.price} on {self.listing.title}"
 
 class Comment(models.Model):
     text = models.CharField(max_length=128)
@@ -40,7 +40,7 @@ class Comment(models.Model):
     listing = models.ForeignKey(AuctionListing, on_delete=models.CASCADE, related_name="comments")
     
     def __str__(self):
-        return f"{self.timestamp}: comment by {self.user}"
+        return f"comment by {self.user} on {self.listing.title}"
 
 class Wishlist(models.Model):
     listing = models.ForeignKey(AuctionListing, on_delete=models.CASCADE)
