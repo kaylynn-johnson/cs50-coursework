@@ -25,8 +25,14 @@ class NewCommentForm(forms.ModelForm):
 
 def index(request):
     # determine all of the auction listings that are active
+    separate_lists = zip(
+        AuctionListing.objects.filter(active__exact=True),
+        AuctionListing.objects.filter(active__exact=True).annotate(max_price=models.Max('bids__price')),
+        AuctionListing.objects.filter(active__exact=True).annotate(count_bids=models.Count('bids')),
+        AuctionListing.objects.filter(active__exact=True).annotate(count_comments=models.Count('comments'))
+    )
     return render(request, "auctions/index.html", {
-        "active_listings": AuctionListing.objects.filter(active__exact=True).annotate(max_price=models.Max('bids__price'))
+        "active_listings": separate_lists
     })
 
 
