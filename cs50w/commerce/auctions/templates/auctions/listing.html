@@ -1,6 +1,11 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
+    {% if listing_info.active %}
+        <p>Active</p>
+    {% else %}
+        <p>Inactive</p>
+    {% endif %}
     <h1>{{ listing_info.title }}</h1>
     <h2>${{ price }}</h2>
 
@@ -11,18 +16,30 @@
     {% endif %}
 
     <h3>Bids</h3>
-    <ul>
-        {% for bid_single in bids %}
-            <li>${{ bid_single.price }} by {{ bid_single.user.username }}</li>
-        {% empty %}
-            <li>No bids</li>
-        {% endfor %}
-    </ul>
-    <form action="{% url 'auctions:bid' listing_info.id %}" method="post">
-        {% csrf_token %}
-        {{ bid_form }}
-        <input type="submit">
-    </form>
+    {% if listing_info.active %}
+        {% if owner %}
+            <form action="{% url 'auctions:close_bid' listing_info.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Close Bidding">
+            </form>
+        {% endif %}
+        <ul>
+            {% for bid_single in bids %}
+                <li>${{ bid_single.price }} by {{ bid_single.user.username }}</li>
+            {% empty %}
+                <li>No bids</li>
+            {% endfor %}
+        </ul>
+        <form action="{% url 'auctions:bid' listing_info.id %}" method="post">
+            {% csrf_token %}
+            {{ bid_form }}
+            <input type="submit">
+        </form>
+    {% elif winner %}
+        <h4>Congratulations! You won {{ listing_info.title }}</h4>
+    {% else %}
+        <h4>This listing is closed</h4>
+    {% endif %}
 
     <h3>Comments</h3>
     <ul>
