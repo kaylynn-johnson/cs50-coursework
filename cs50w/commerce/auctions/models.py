@@ -5,7 +5,7 @@ from django.db import models
 CATEGORIES = [
     ("FASH", "Fashion"),
     ("TOYS", "Toys"),
-    ("ELEC", "Electrionics"),
+    ("ELEC", "Electronics"),
     ("HOME", "Home"),
     ("MISC", "Miscellaneous")
 ]
