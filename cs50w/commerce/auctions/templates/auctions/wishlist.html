@@ -5,7 +5,9 @@
 
     <ul>
         {% for item in wishlist %}
-            <li>{{ item.listing.title }}</li>
+            <li>
+                <a href="{% url 'auctions:listing' item.listing.id %}">{{ item.listing.title }}</a>
+            </li>
             <ul>
                 <li>{{ item.listing.description }}</li>
                 {% if item.listing.url_image %}
