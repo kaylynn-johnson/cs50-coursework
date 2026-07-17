@@ -1,0 +1,27 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h1>Active Listings</h1>
+
+    <ul>
+        {% for listing in listings %}
+            <li>
+                <a href="{% url 'auctions:listing' listing.id %}">{{ listing.title }}</a>
+            </li>
+            <ul>
+                <li>{{ listing.description }}</li>
+                {% if listing.url_image %}
+                    <li><img src="{{ listing.url_image }}" alt="{{ listing.title}}" width="200px"></li>
+                {% endif %}
+            </ul>
+        {% empty %}
+            <li>No active listings</li>
+        {% endfor %}
+    </ul>
+
+    <form action="{% url 'auctions:categories' %}">
+        {% csrf_token %}
+        <input type="submit" value="Back to Categories">
+    </form>
+
+{% endblock %}
