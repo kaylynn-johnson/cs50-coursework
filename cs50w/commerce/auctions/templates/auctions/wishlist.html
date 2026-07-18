@@ -21,8 +21,8 @@
         </div>
 
         <div>
-            {% if listing_info.url_image %}
-                <img src="{{ listing_info.url_image }}" alt="{{ listing_info.title }}" width="400px">
+            {% if item.listing.url_image %}
+                <img src="{{ item.listing.url_image }}" alt="{{ item.listing.title }}" width="400px">
             {% else %}
                 <img src="https://4ddig.tenorshare.com/images/photo-recovery/images-not-found.webp" alt="Image not Found" width="400px">
             {% endif %}

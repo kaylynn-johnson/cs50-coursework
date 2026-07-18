@@ -72,7 +72,7 @@
             <form action="{% url 'auctions:bid' listing_info.id %}" method="post">
                 {% csrf_token %}
                 New Bid: {{ bid_form.price }}
-                <input type="submit">
+                <input type="submit" value="Submit">
             </form>
         {% elif winner %}
             <h4>Congratulations! You won {{ listing_info.title.capitalize }}</h4>
@@ -101,7 +101,7 @@
         <form action="{% url 'auctions:comment' listing_info.id %}" method="post">
             {% csrf_token %}
             New comment: {{ comment_form.text }}
-            <input type="submit">
+            <input type="submit" value="Submit">
         </form>
     </div>    
 
