@@ -1,23 +1,35 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h1>Active Listings</h1>
+    <h2>Active Listings</h2>
 
-    <ul>
-        {% for listing in listings %}
-            <li>
-                <a href="{% url 'auctions:listing' listing.id %}">{{ listing.title }}</a>
-            </li>
-            <ul>
-                <li>{{ listing.description }}</li>
-                {% if listing.url_image %}
-                    <li><img src="{{ listing.url_image }}" alt="{{ listing.title}}" width="200px"></li>
+    {% for listing in listings %}
+         <div class="listing-eyebrow">
+            <div>
+                <div class="title-listing">
+                    <a href="{% url 'auctions:listing' listing.id %}">{{ listing.title.capitalize }}</a>
+                </div>
+                <div class="description-listing">{{ listing.description }}</div>
+            </div>
+            <div class="price">
+                {% if not listing.max_price %}
+                    ${{ listing.starting_price }}
+                {% else %}
+                    ${{ listing.max_price }}
                 {% endif %}
-            </ul>
-        {% empty %}
-            <li>No active listings</li>
-        {% endfor %}
-    </ul>
+            </div>
+        </div>
+
+        <div>
+            {% if listing.url_image %}
+                <img src="{{ listing.url_image }}" alt="{{ listing.title }}" width="400px">
+            {% else %}
+                <img src="https://4ddig.tenorshare.com/images/photo-recovery/images-not-found.webp" alt="Image not Found" width="400px">
+            {% endif %}
+        </div>
+    {% empty %}
+        <h3>No active listings</h3>
+    {% endfor %}
 
     <form action="{% url 'auctions:categories' %}">
         {% csrf_token %}

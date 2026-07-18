@@ -247,7 +247,7 @@ def overall_categories(request):
 @login_required
 def category_listing(request, category):
     CATEGORIES = {"Fashion": "FASH", "Toys": "TOYS", "Electronics": "ELEC",  "Home": "HOME", "Miscellaneous": "MISC"}
-    listings = AuctionListing.objects.filter(category=CATEGORIES[category], active=True)
+    listings = AuctionListing.objects.filter(category=CATEGORIES[category], active=True).annotate(max_price=models.Max('bids__price'))
 
     return render(request, "auctions/category.html", {
         "listings": listings
