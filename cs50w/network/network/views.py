@@ -61,3 +61,28 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "network/register.html")
+
+
+def create_post(request):
+    """Create post for user"""
+    pass
+
+
+def edit_post(request, post_id):
+    """Edit contents of post_id"""
+    pass
+
+
+def like_post(request, post_id):
+    """Like/Unlike post_id"""
+    pass
+
+
+def show_profile(request, username):
+    """Show the profile of username"""
+    pass
+
+
+def follow_user(request, username):
+    """Follow/Unfollow username"""
+    pass
