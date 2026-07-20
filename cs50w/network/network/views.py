@@ -4,11 +4,24 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
+from django.views.generic import ListView
 
 from .models import User, Post, Likes, Followers
 
 
+class PostListView(ListView):
+    paginate_by = 10
+    model = Post
+    
+
 def index(request):
+    """All posts view"""
+
+    # Gather all of the information about the posts
+    posts = Post.objects.all()
+    likes = posts.likes
+
+
     return render(request, "network/index.html")
 
 
