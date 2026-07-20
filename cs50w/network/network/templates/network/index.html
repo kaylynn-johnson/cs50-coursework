@@ -24,7 +24,9 @@
                     <button class="edit-post" data-id="{{ post.id }}">Edit</button>
                 </div>
             {% endif %}
-            <div>{{ post.content }}</div>
+            <div id="original-content">{{ post.content }}</div>
+            <textarea id="edit-content" style="display: none;">{{ post.content }}</textarea>
+            <button id="save-post-edit" style="display: none;">Save</button>
             <div style="display: grid; grid-template-columns: auto auto;">
                 <div>Created at {{ post.created_at }}</div>
                 {% if post.created_at != post.updated_at %}

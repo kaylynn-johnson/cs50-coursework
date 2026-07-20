@@ -47,6 +47,43 @@ function submit_post() {
 
 // Edit post
 function edit_post(post_id) {
+    // Edit button has been clicked so hide the div and show the text area & save button
+    document.querySelector('#original-content').style.display = 'none';
+    document.querySelector('#edit-content').style.display = 'block';
+    document.querySelector('#save-post-edit').style.display = 'block';
+
+    // Add event listener to save button
+    document.querySelector('#save-post-edit').addEventListener('click', () => {
+        // Gateher new content
+        const new_content = document.querySelector('#edit-content').value;
+
+        // Make put request
+        fetch(`/post/${post_id}`, {
+            method: "PUT",
+            body: JSON.stringify({
+                new_content: new_content
+            })
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.error !== undefined) {
+                // Give alert
+                alert(`Error: ${result.error}`)
+                // Set edit content back to original content
+                document.querySelector('#edit-content').value = document.querySelector('#original-content').value;
+            } else {
+                // Set edit and original content to new_content
+                document.querySelector('#original-content').value = new_content;
+                document.querySelector('#edit-content').value = new_content;
+            }
+        });
+
+        // Hide text area & save button and show div
+        document.querySelector('#edit-content').style.display = 'none';
+        document.querySelector('#save-post-edit').style.display = 'none';
+        document.querySelector('#original-content').style.display = 'block';
+    });
+
     
 }
 

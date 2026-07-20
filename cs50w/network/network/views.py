@@ -90,7 +90,29 @@ def create_post(request):
 
 def edit_post(request, post_id):
     """Edit contents of post_id"""
-    pass
+    # Must use PUT to edit a post
+    if request.method != "PUT":
+        return JsonResponse({"error": "PUT request required"}, status=400)
+    
+    # Ensure new content was passed to the function
+    data = json.loads(request.body)
+    new_content = data.get("new_content")
+    if not new_content:
+        return JsonResponse({"error": "Post cannot be blank"}, status=400)
+    
+    # Find post object by id
+    if not Post.objects.filter(id=post_id).exists():
+        return JsonResponse({"error": "Post with that ID does not exist"}, status=400)
+    
+    post = Post.objects.get(id=post_id)
+
+    # Ensure owner and user editting are the same person
+    if post.author != request.user:
+        return JsonResponse({"error": "Only the author of the post can edit it."}, status=400)
+    
+    post.content = new_content
+    post.save()
+    return JsonResponse({"message": "Post updated successfully"}, status=204)
 
 
 def like_post(request, post_id):
