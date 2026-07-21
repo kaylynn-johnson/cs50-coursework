@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from datetime import date, time
 
 
 class User(AbstractUser):
@@ -12,6 +13,12 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    @property
+    def updated(self):
+        if self.created_at.strftime("%Y-%m-%dT%H:%M:%S") != self.updated_at.strftime("%Y-%m-%dT%H:%M:%S"):
+            return True
+        return False
+    
     def __str__(self):
         return f"Post by {self.author.username} at {self.created_at}"
     

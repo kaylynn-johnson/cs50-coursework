@@ -12,17 +12,19 @@ from .models import User, Post, Likes, Followers
 class PostListView(ListView):
     paginate_by = 10
     model = Post
-    
+    template_name = 'network/index.html'
+    context_object_name = 'posts'
+
 
 def index(request):
     """All posts view"""
 
     # Gather all of the information about the posts
-    posts = Post.objects.all()
-    likes = posts.likes
+    posts = Post.objects.all().order_by("-created_at")
 
-
-    return render(request, "network/index.html")
+    return render(request, "network/index.html", {
+        "posts": posts
+    })
 
 
 def login_view(request):
@@ -91,7 +93,7 @@ def create_post(request):
         return JsonResponse({"error": "Post cannot be blank."}, status=400)
     
     # Determine author
-    author = User.objects.get(id=request.id)
+    author = User.objects.get(id=request.user.id)
 
     # Create the Post object
     # Created at and Updated at should be added automatically
@@ -125,7 +127,8 @@ def edit_post(request, post_id):
     
     post.content = new_content
     post.save()
-    return JsonResponse({"message": "Post updated successfully"}, status=204)
+    print(f"saved the post. responding to request!")
+    return JsonResponse({"message": "Post updated successfully"}, status=201)
 
 
 def like_post(request, post_id):
