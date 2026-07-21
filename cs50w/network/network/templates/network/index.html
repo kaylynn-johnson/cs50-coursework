@@ -35,12 +35,7 @@
             <div id="original-content-{{ post.id }}">{{ post.content }}</div>
             <textarea id="edit-content-{{ post.id }}" style="display: none;">{{ post.content }}</textarea>
             <button id="save-post-edit-{{ post.id }}" style="display: none;">Save</button>
-            <div style="display: grid; grid-template-columns: auto auto;">
-                <div>Created at {{ post.created_at }}</div>
-                {% if post.updated %}
-                    <div style="text-align: end;">Last updated at {{ post.updated_at }}</div>
-                {% endif %}
-            </div>
+            <div>Created at {{ post.created_at }}</div>
             <div style="align-content: center;">
                 <button id="like-post-{{ post.id }}" style="border: 0;">
                     {% if post.likes.count != 0 %}

@@ -2,7 +2,7 @@ import json
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views.generic import ListView
 
@@ -15,16 +15,19 @@ class PostListView(ListView):
     template_name = 'network/index.html'
     context_object_name = 'posts'
 
+class ProfileListView(ListView):
+    paginate_by = 10
+    template_name = "network/profile.html"
+    context_object_name = 'profile_posts'
+    def get_queryset(self):
+        self.username = get_object_or_404(User, name=self.kwargs["username"])
+        return Post.objects.filter(author=self.username)
+
 
 def index(request):
     """All posts view"""
-
-    # Gather all of the information about the posts
-    posts = Post.objects.all().order_by("-created_at")
-
-    return render(request, "network/index.html", {
-        "posts": posts
-    })
+    # handled by PostListView
+    pass
 
 
 def login_view(request):
