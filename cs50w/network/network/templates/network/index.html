@@ -37,12 +37,8 @@
             <button id="save-post-edit-{{ post.id }}" style="display: none;">Save</button>
             <div>Created at {{ post.created_at }}</div>
             <div style="align-content: center;">
-                <button id="like-post-{{ post.id }}" style="border: 0;">
-                    {% if post.likes.count != 0 %}
-                        <span>&#9825;</span>
-                    {% else %}
-                        <span style="color:red;">&#9829;</span>
-                    {% endif %}
+                <button class="like-post" data-id="{{ post.id }}" style="border: 0;">
+                    <span id="like-heart-{{ post.id }}">&#9825;</span>
                 </button>
                  {{ post.likes.count }} Likes
             </div>

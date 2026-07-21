@@ -14,6 +14,19 @@ document.addEventListener('DOMContentLoaded', function() {
             edit_post(this.dataset.id);
         };
     });
+
+    // determine if user has liked a post
+    document.querySelectorAll('.like-post').forEach(button => {
+        // first get the status of the heart
+        console.log(button.dataset.id);
+        const liked = determine_like_status(button.dataset.id);
+        change_like_status(liked);
+
+        // then put event listener for on click
+        button.onclick = function() {
+            like_post(this.dataset.id);
+        }
+    })
 });
 
 // Fetch CSRF Token from meta tag in header
@@ -119,5 +132,58 @@ function edit_post(post_id) {
 
 
 // Like post
+function determine_like_status(post_id) {
+    // GET request to views
+    fetch(`/post/${post_id}/like`)
+    .then(response => response.json())
+    .then(request => {
+        return request.liked;
+    });
 
+    return false;
+}
 
+function change_like_status(liked, post_id) {
+    const heart = document.querySelector(`#like-heart-${post_id}`);
+    console.log(heart);
+    if (liked) {
+        // heart should be red
+        heart.innerHTML = '&#9829;';
+        heart.style.color = 'red';
+    } else {
+        // reinstantiate the heart is white outlined heart
+        heart.innerHTML = '&#9825;';
+        heart.style.color = '';
+    }
+}
+
+function like_post(post_id) {
+    // determine status of the heart to know if post needs to be liked or not
+    const heart = document.querySelector(`#like-heart-${post_id}`);
+    if (heart.innerHTML === '&#2829;') {
+        const add_like = false;
+    } else {
+        // person has not liked the post so need to add the like entry
+        const add_like = true;
+    }
+
+    // person has liked the post so need to delete the like entry
+    fetch(`/post/${post_id}/like`, {
+        method: 'PUT',
+        headers: {
+            'X-CSRFToken': getCsrfToken()
+        },
+        body: JSON.stringify({
+            add_like: add_like,
+        })
+    })
+    .then(response => response.json())
+    .then(request => {
+        if (request.error != undefined) {
+            alert('Could not change like status for this post');
+        } else {
+            // successfully removed the like so update HTML
+            change_like_status(add_like, post_id);
+        }
+    });
+}

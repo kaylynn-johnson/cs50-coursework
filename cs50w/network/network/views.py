@@ -136,7 +136,38 @@ def edit_post(request, post_id):
 
 def like_post(request, post_id):
     """Like/Unlike post_id"""
-    pass
+
+    liked = Likes.objects.filter(user=request.user, post=Post.objects.get(id=post_id)).exists()
+
+    # GET method to determine like status of the heart
+    if request.method == "GET":    
+        return JsonResponse({"liked": liked})
+    
+    # POST method to add or remove an entry from the Likes model
+    if request.method == "PUT":
+        data = json.loads(request.body)
+        add_like = data.get("add_like")
+
+        if add_like:
+            # First ensure there aren't any entries already
+            if liked:
+                return JsonResponse({"message": "Post is already liked"})
+            # Add entry
+            liked_post = Likes(user=request.user, post=Post.objects.get(id=post_id))
+            liked_post.save()
+            return JsonResponse({"message": "Post has been liked"})
+        else:
+            # First ensure there is an entry
+            if not liked:
+                return JsonResponse({"message": "Post is already not liked"})
+            # remove entry
+            liked_post = Likes.objects.get(user=request.user, post=Post.objects.get(id=post_id))
+            liked_post.delete()
+            return JsonResponse({"message": "Like has been removed from post"})
+        
+    # throw error
+    return JsonResponse({"error": "Must use GET or PUT at this route"}, status=400)
+
 
 
 def show_profile(request, username):
