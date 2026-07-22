@@ -18,9 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // determine if user has liked a post
     document.querySelectorAll('.like-post').forEach(button => {
         // first get the status of the heart
-        console.log(button.dataset.id);
-        const liked = determine_like_status(button.dataset.id);
-        change_like_status(liked);
+        determine_like_status(button.dataset.id);
 
         // then put event listener for on click
         button.onclick = function() {
@@ -130,41 +128,25 @@ function edit_post(post_id) {
     
 }
 
-
 // Like post
 function determine_like_status(post_id) {
     // GET request to views
     fetch(`/post/${post_id}/like`)
     .then(response => response.json())
     .then(request => {
-        return request.liked;
+        change_like_status(request.liked, post_id);
     });
-
-    return false;
-}
-
-function change_like_status(liked, post_id) {
-    const heart = document.querySelector(`#like-heart-${post_id}`);
-    console.log(heart);
-    if (liked) {
-        // heart should be red
-        heart.innerHTML = '&#9829;';
-        heart.style.color = 'red';
-    } else {
-        // reinstantiate the heart is white outlined heart
-        heart.innerHTML = '&#9825;';
-        heart.style.color = '';
-    }
 }
 
 function like_post(post_id) {
     // determine status of the heart to know if post needs to be liked or not
     const heart = document.querySelector(`#like-heart-${post_id}`);
-    if (heart.innerHTML === '&#2829;') {
-        const add_like = false;
+    let add_like;
+    if (heart.innerHTML === '&#2829;' || heart.innerHTML === '♥') {
+        add_like = false;
     } else {
         // person has not liked the post so need to add the like entry
-        const add_like = true;
+        add_like = true;
     }
 
     // person has liked the post so need to delete the like entry
@@ -184,6 +166,25 @@ function like_post(post_id) {
         } else {
             // successfully removed the like so update HTML
             change_like_status(add_like, post_id);
+            const num_likes = document.querySelector(`#like-count-${post_id}`).innerHTML;
+            if (add_like) {
+                document.querySelector(`#like-count-${post_id}`).innerHTML = parseInt(num_likes) + 1;
+            } else {
+                document.querySelector(`#like-count-${post_id}`).innerHTML = parseInt(num_likes) - 1;
+            }
         }
     });
+}
+
+function change_like_status(liked, post_id) {
+    const heart = document.querySelector(`#like-heart-${post_id}`);
+    if (liked) {
+        // heart should be red
+        heart.innerHTML = '&#9829;';
+        heart.style.color = 'red';
+    } else {
+        // reinstantiate the heart is white outlined heart
+        heart.innerHTML = '&#9825;';
+        heart.style.color = '';  
+    }
 }

@@ -40,7 +40,7 @@
                 <button class="like-post" data-id="{{ post.id }}" style="border: 0;">
                     <span id="like-heart-{{ post.id }}">&#9825;</span>
                 </button>
-                 {{ post.likes.count }} Likes
+                <span id="like-count-{{ post.id }}" >{{ post.likes.count }}</span> Likes
             </div>
         {% endfor %}
     </div>
