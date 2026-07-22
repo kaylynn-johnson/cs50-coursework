@@ -1,0 +1,68 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block script %}
+    <script src="{% static 'network/posts.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+    <h1>{{ profile_posts.0.author.username.capitalize }}'s Profile</h1>
+
+    <div style="display: grid; grid-template-columns: 100px auto;">
+        <div>{{ profile_posts.0.author.following.count }} Following</div>
+        <div>{{ profile_posts.0.author.follower.count }} Followers</div>
+    </div>
+
+    {% if user.is_authenticated %}
+        {% if profile_posts.0.author.username != user.get_username %}
+            <button id="follow-{{ profile_posts.0.author.id }}">Follow</button>
+        {% else %}
+            <button id="create-post-btn">Create Post</button>
+            <div id="create-post">
+                <h3>New Post</h3>
+                <form>
+                    <textarea id="new-post-content"></textarea>
+                    <input type="button" id="submit-post" value="Post">
+                </form>
+            </div>
+        {% endif %}
+    {% endif %}
+
+    <div id="posts">
+        {% for post in profile_posts %}
+            <div style="display: grid; grid-template-columns: 300px auto;">
+                <div><b>{{ post.author.username }}</b></div>
+                {% if post.author.username == user.get_username %}
+                    <div>
+                        <button class="edit-post" data-id="{{ post.id }}">Edit</button>
+                    </div>
+                {% else %}
+                    <div></div>
+                {% endif %}
+            </div>
+            
+            <div id="original-content-{{ post.id }}">{{ post.content }}</div>
+            <textarea id="edit-content-{{ post.id }}" style="display: none;">{{ post.content }}</textarea>
+            <button id="save-post-edit-{{ post.id }}" style="display: none;">Save</button>
+            <div>Created at {{ post.created_at }}</div>
+            <div style="align-content: center;">
+                <button class="like-post" data-id="{{ post.id }}" style="border: 0;">
+                    <span id="like-heart-{{ post.id }}">&#9825;</span>
+                </button>
+                <span id="like-count-{{ post.id }}" >{{ post.likes.count }}</span> Likes
+            </div>
+        {% endfor %}
+    </div>
+
+    <div id="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+    </div>
+{% endblock %}

@@ -20,7 +20,7 @@ class ProfileListView(ListView):
     template_name = "network/profile.html"
     context_object_name = 'profile_posts'
     def get_queryset(self):
-        self.username = get_object_or_404(User, name=self.kwargs["username"])
+        self.username = get_object_or_404(User, username=self.kwargs["username"])
         return Post.objects.filter(author=self.username)
 
 
