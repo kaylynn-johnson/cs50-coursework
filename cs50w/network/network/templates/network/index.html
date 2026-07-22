@@ -10,7 +10,7 @@
 
     {% if user.is_authenticated %}
         <button id="create-post-btn">Create Post</button>
-        <div id="create-post">
+        <div id="create-post" style="display: none;">
             <h3>New Post</h3>
             <form>
                 <textarea id="new-post-content"></textarea>
@@ -22,7 +22,7 @@
     <div id="posts">
         {% for post in posts %}
             <div style="display: grid; grid-template-columns: 300px auto;">
-                <div><b>{{ post.author.username }}</b></div>
+                <div><b><a href="{% url 'profile' post.author.username %}">{{ post.author.username }}</a></b></div>
                 {% if post.author.username == user.get_username %}
                     <div>
                         <button class="edit-post" data-id="{{ post.id }}">Edit</button>
@@ -35,7 +35,7 @@
             <div id="original-content-{{ post.id }}">{{ post.content }}</div>
             <textarea id="edit-content-{{ post.id }}" style="display: none;">{{ post.content }}</textarea>
             <button id="save-post-edit-{{ post.id }}" style="display: none;">Save</button>
-            <div>Created at {{ post.created_at }}</div>
+            <div>{{ post.created_at }}</div>
             <div style="align-content: center;">
                 <button class="like-post" data-id="{{ post.id }}" style="border: 0;">
                     <span id="like-heart-{{ post.id }}">&#9825;</span>

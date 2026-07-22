@@ -1,30 +1,35 @@
 // JS related to the pages
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Hide create post section
-    document.querySelector('#create-post').style.display = 'none';
 
-    // add event listener to create post button
-    document.querySelector('#create-post-btn').addEventListener('click', create_post);
+    try {
+        // add event listener to create post button
+        document.querySelector('#create-post-btn').addEventListener('click', create_post);
 
-    // add event listeners to all of the edit buttons
-    document.querySelectorAll('.edit-post').forEach(button => {
-        button.onclick = function() {
-            console.log(`Creating Event Listener to edit post ${this.dataset.id}`);
-            edit_post(this.dataset.id);
-        };
-    });
+        // add event listeners to all of the edit buttons
+        document.querySelectorAll('.edit-post').forEach(button => {
+            button.onclick = function() {
+                console.log(`Creating Event Listener to edit post ${this.dataset.id}`);
+                edit_post(this.dataset.id);
+            };
+        });
 
-    // determine if user has liked a post
-    document.querySelectorAll('.like-post').forEach(button => {
-        // first get the status of the heart
-        determine_like_status(button.dataset.id);
+        // determine if user has liked a post
+        document.querySelectorAll('.like-post').forEach(button => {
+            // first get the status of the heart
+            determine_like_status(button.dataset.id);
 
-        // then put event listener for on click
-        button.onclick = function() {
-            like_post(this.dataset.id);
-        }
-    })
+            // then put event listener for on click
+            button.onclick = function() {
+                like_post(this.dataset.id);
+            }
+        });
+    }
+    catch(error) {
+        console.log(error);
+    }
+
+    
 });
 
 // Fetch CSRF Token from meta tag in header

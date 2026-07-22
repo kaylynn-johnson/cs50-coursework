@@ -3,19 +3,20 @@
 
 {% block script %}
     <script src="{% static 'network/posts.js' %}"></script>
+    <script src="{% static 'network/profile.js' %}"></script>
 {% endblock %}
 
 {% block body %}
     <h1>{{ profile_posts.0.author.username.capitalize }}'s Profile</h1>
 
     <div style="display: grid; grid-template-columns: 100px auto;">
-        <div>{{ profile_posts.0.author.following.count }} Following</div>
-        <div>{{ profile_posts.0.author.follower.count }} Followers</div>
+        <div><span id="following-count">{{  profile_posts.0.author.following.count }}</span> Following</div>
+        <div><span id="follower-count">{{ profile_posts.0.author.follower.count }}</span> Followers</div>
     </div>
 
     {% if user.is_authenticated %}
         {% if profile_posts.0.author.username != user.get_username %}
-            <button id="follow-{{ profile_posts.0.author.id }}">Follow</button>
+            <button id="follow" data-user-id="{{ profile_posts.0.author.username }}">Follow</button>
         {% else %}
             <button id="create-post-btn">Create Post</button>
             <div id="create-post">
@@ -44,7 +45,7 @@
             <div id="original-content-{{ post.id }}">{{ post.content }}</div>
             <textarea id="edit-content-{{ post.id }}" style="display: none;">{{ post.content }}</textarea>
             <button id="save-post-edit-{{ post.id }}" style="display: none;">Save</button>
-            <div>Created at {{ post.created_at }}</div>
+            <div>{{ post.created_at }}</div>
             <div style="align-content: center;">
                 <button class="like-post" data-id="{{ post.id }}" style="border: 0;">
                     <span id="like-heart-{{ post.id }}">&#9825;</span>

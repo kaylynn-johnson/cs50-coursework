@@ -15,6 +15,7 @@ class PostListView(ListView):
     template_name = 'network/index.html'
     context_object_name = 'posts'
 
+
 class ProfileListView(ListView):
     paginate_by = 10
     template_name = "network/profile.html"
@@ -169,12 +170,27 @@ def like_post(request, post_id):
     return JsonResponse({"error": "Must use GET or PUT at this route"}, status=400)
 
 
-
-def show_profile(request, username):
-    """Show the profile of username"""
-    pass
-
-
 def follow_user(request, username):
     """Follow/Unfollow username"""
-    pass
+
+    follower = Followers.objects.filter(initiator=request.user, receiver=User.objects.get(username=username))
+
+    if request.method == "POST":
+        data = json.loads(request.body)
+        follow = data.get("follow")
+        if follower.exists():
+            # add the follow
+            receiver = User.objects.get(username=username)
+            initiator = request.user
+            new_follow = Followers(initiator=initiator, receiver=receiver)
+            new_follow.save()
+        else:
+            # remove the follow
+            follower.delete()
+        return JsonResponse({"message": "Follow request completed"})
+        
+    
+    if request.method == "GET":
+        return JsonResponse({"follower": follower.exists()})
+    
+    return JsonResponse({"error": "Must use POST or GET at this route"}, status=400)
