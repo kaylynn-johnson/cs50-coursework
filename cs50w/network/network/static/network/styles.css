@@ -1,0 +1,36 @@
+h1 {
+    margin: 5px;
+}
+
+#create-post-btn {
+    margin: 5px;
+}
+
+#create-post {
+    display: none;
+    margin: 5px;
+}
+
+.new-post-content {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 20vh;
+    width: 50%;
+}
+
+.post-outline {
+    margin: 15px;
+    padding-bottom: 5px;
+    width: 50%;
+    border-bottom: 1px solid gray;
+}
+
+.create-time {
+    font-size: 12px;
+    color: gray;
+}
+
+.likes {
+    font-size: 14px;
+    align-content: center;
+}

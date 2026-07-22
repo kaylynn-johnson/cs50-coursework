@@ -9,40 +9,42 @@
     <h1>{{ title }}</h1>
 
     {% if user.is_authenticated and create%}
-        <button id="create-post-btn">Create Post</button>
-        <div id="create-post" style="display: none;">
+        <button id="create-post-btn" class="btn btn-primary">Create Post</button>
+        <div id="create-post">
             <h3>New Post</h3>
             <form>
-                <textarea id="new-post-content"></textarea>
-                <input type="button" id="submit-post" value="Post">
+                <textarea class="new-post-content"></textarea>
+                <input type="button" id="submit-post" value="Post" class="btn btn-primary" style="display: block;">
             </form>
         </div>
     {% endif %}
 
     <div id="posts">
         {% for post in posts %}
-            <div style="display: grid; grid-template-columns: 300px auto;">
-                <div><b><a href="{% url 'profile' post.author.username %}">{{ post.author.username }}</a></b></div>
-                {% if post.author.username == user.get_username %}
-                    <div>
-                        <button class="edit-post" data-id="{{ post.id }}">Edit</button>
-                    </div>
-                {% else %}
-                    <div></div>
-                {% endif %}
-            </div>
-            
-            <div id="original-content-{{ post.id }}">{{ post.content }}</div>
-            <textarea id="edit-content-{{ post.id }}" style="display: none;">{{ post.content }}</textarea>
-            <button id="save-post-edit-{{ post.id }}" style="display: none;">Save</button>
-            <div>{{ post.created_at }}</div>
-            <div style="align-content: center;">
-                {% if user.is_authenticated %}
-                    <button class="like-post" data-id="{{ post.id }}" style="border: 0;">
-                        <span id="like-heart-{{ post.id }}">&#9825;</span>
-                    </button>
-                {% endif %}
-                <span id="like-count-{{ post.id }}" >{{ post.likes.count }}</span> Likes
+            <div class="post-outline">
+                <div style="display: grid; grid-template-columns: 300px auto;">
+                    <div><b><a href="{% url 'profile' post.author.username %}">{{ post.author.username }}</a></b></div>
+                    {% if post.author.username == user.get_username %}
+                        <div>
+                            <button class="edit-post btn btn-primary btn-sm" data-id="{{ post.id }}">Edit</button>
+                        </div>
+                    {% else %}
+                        <div></div>
+                    {% endif %}
+                </div>
+                
+                <div id="original-content-{{ post.id }}">{{ post.content }}</div>
+                <textarea id="edit-content-{{ post.id }}" class="new-post-content" style="display: none;">{{ post.content }}</textarea>
+                <button id="save-post-edit-{{ post.id }}" class="btn btn-primary btn-sm" style="display: none;">Save</button>
+                <div class="create-time">{{ post.created_at }}</div>
+                <div class="likes">
+                    {% if user.is_authenticated %}
+                        <button class="like-post" data-id="{{ post.id }}" style="border: 0;">
+                            <span id="like-heart-{{ post.id }}">&#9825;</span>
+                        </button>
+                    {% endif %}
+                    <span id="like-count-{{ post.id }}">{{ post.likes.count }}</span> Likes
+                </div>
             </div>
         {% empty %}
             <h3>No Posts to View</h3>
