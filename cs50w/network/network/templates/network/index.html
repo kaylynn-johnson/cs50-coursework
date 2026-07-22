@@ -6,9 +6,9 @@
 {% endblock %}
 
 {% block body %}
-    <h1>All Posts</h1>
+    <h1>{{ title }}</h1>
 
-    {% if user.is_authenticated %}
+    {% if user.is_authenticated and create%}
         <button id="create-post-btn">Create Post</button>
         <div id="create-post" style="display: none;">
             <h3>New Post</h3>
@@ -37,11 +37,15 @@
             <button id="save-post-edit-{{ post.id }}" style="display: none;">Save</button>
             <div>{{ post.created_at }}</div>
             <div style="align-content: center;">
-                <button class="like-post" data-id="{{ post.id }}" style="border: 0;">
-                    <span id="like-heart-{{ post.id }}">&#9825;</span>
-                </button>
+                {% if user.is_authenticated %}
+                    <button class="like-post" data-id="{{ post.id }}" style="border: 0;">
+                        <span id="like-heart-{{ post.id }}">&#9825;</span>
+                    </button>
+                {% endif %}
                 <span id="like-count-{{ post.id }}" >{{ post.likes.count }}</span> Likes
             </div>
+        {% empty %}
+            <h3>No Posts to View</h3>
         {% endfor %}
     </div>
 

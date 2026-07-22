@@ -1,5 +1,6 @@
 import json
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth. mixins import LoginRequiredMixin
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404
@@ -15,6 +16,17 @@ class PostListView(ListView):
     template_name = 'network/index.html'
     context_object_name = 'posts'
 
+    def get_queryset(self):
+        return super().get_queryset()
+    
+    def get_context_data(self, **kwargs):
+        context = super(PostListView, self).get_context_data(**kwargs)
+        context.update({
+            'title': 'All Posts',
+            'create': True
+        })
+        return context
+
 
 class ProfileListView(ListView):
     paginate_by = 10
@@ -23,6 +35,32 @@ class ProfileListView(ListView):
     def get_queryset(self):
         self.username = get_object_or_404(User, username=self.kwargs["username"])
         return Post.objects.filter(author=self.username)
+    
+    def get_context_data(self, **kwargs):
+        context = super(ProfileListView, self).get_context_data(**kwargs)
+        context.update({
+            'username': self.kwargs["username"]
+        })
+        return context
+    
+
+class FollowingListView(LoginRequiredMixin, ListView):
+    paginate_by = 10
+    template_name = "network/index.html"
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        # find the list of following IDs
+        self.following_ids = Followers.objects.filter(initiator=User.objects.get(username=self.kwargs["username"])).values('receiver')
+        return Post.objects.filter(author__in=self.following_ids)
+    
+    def get_context_data(self, **kwargs):
+        context = super(FollowingListView, self).get_context_data(**kwargs)
+        context.update({
+            'title': 'Following',
+            'create': False
+        })
+        return context
 
 
 def index(request):
@@ -178,7 +216,7 @@ def follow_user(request, username):
     if request.method == "POST":
         data = json.loads(request.body)
         follow = data.get("follow")
-        if follower.exists():
+        if not follower.exists():
             # add the follow
             receiver = User.objects.get(username=username)
             initiator = request.user

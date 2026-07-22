@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ profile_posts.0.author.username.capitalize }}'s Profile</h1>
+    <h1>{{ username.capitalize }}'s Profile</h1>
 
     <div style="display: grid; grid-template-columns: 100px auto;">
         <div><span id="following-count">{{  profile_posts.0.author.following.count }}</span> Following</div>
@@ -15,11 +15,11 @@
     </div>
 
     {% if user.is_authenticated %}
-        {% if profile_posts.0.author.username != user.get_username %}
+        {% if username != user.get_username %}
             <button id="follow" data-user-id="{{ profile_posts.0.author.username }}">Follow</button>
         {% else %}
             <button id="create-post-btn">Create Post</button>
-            <div id="create-post">
+            <div id="create-post" style="display: none;">
                 <h3>New Post</h3>
                 <form>
                     <textarea id="new-post-content"></textarea>
@@ -47,11 +47,15 @@
             <button id="save-post-edit-{{ post.id }}" style="display: none;">Save</button>
             <div>{{ post.created_at }}</div>
             <div style="align-content: center;">
-                <button class="like-post" data-id="{{ post.id }}" style="border: 0;">
-                    <span id="like-heart-{{ post.id }}">&#9825;</span>
-                </button>
+                {% if user.is_authenticated %}
+                    <button class="like-post" data-id="{{ post.id }}" style="border: 0;">
+                        <span id="like-heart-{{ post.id }}">&#9825;</span>
+                    </button>
+                {% endif %}
                 <span id="like-count-{{ post.id }}" >{{ post.likes.count }}</span> Likes
             </div>
+        {% empty %}
+            <h3>User has no posts</h3>
         {% endfor %}
     </div>
 
