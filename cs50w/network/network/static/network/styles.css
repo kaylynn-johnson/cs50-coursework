@@ -25,6 +25,11 @@ h1 {
     border-bottom: 1px solid gray;
 }
 
+.post-header {
+    display: grid; 
+    grid-template-columns: 300px auto;
+}
+
 .create-time {
     font-size: 12px;
     color: gray;
@@ -33,4 +38,9 @@ h1 {
 .likes {
     font-size: 14px;
     align-content: center;
+}
+
+#following {
+    display: grid; 
+    grid-template-columns: 100px auto;
 }

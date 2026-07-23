@@ -9,7 +9,7 @@
 {% block body %}
     <h1>{{ username.capitalize }}'s Profile</h1>
 
-    <div style="display: grid; grid-template-columns: 100px auto;">
+    <div id="following">
         <div><span id="following-count">{{  profile_posts.0.author.following.count }}</span> Following</div>
         <div><span id="follower-count">{{ profile_posts.0.author.follower.count }}</span> Followers</div>
     </div>
@@ -18,12 +18,12 @@
         {% if username != user.get_username %}
             <button id="follow" data-user-id="{{ profile_posts.0.author.username }}">Follow</button>
         {% else %}
-            <button id="create-post-btn">Create Post</button>
+            <button id="create-post-btn" class="btn btn-primary">Create Post</button>
             <div id="create-post" style="display: none;">
                 <h3>New Post</h3>
                 <form>
                     <textarea id="new-post-content"></textarea>
-                    <input type="button" id="submit-post" value="Post">
+                    <input type="button" id="submit-post" value="Post" class="btn btn-primary" style="display: block;">
                 </form>
             </div>
         {% endif %}
@@ -31,28 +31,30 @@
 
     <div id="posts">
         {% for post in profile_posts %}
-            <div style="display: grid; grid-template-columns: 300px auto;">
-                <div><b>{{ post.author.username }}</b></div>
-                {% if post.author.username == user.get_username %}
-                    <div>
-                        <button class="edit-post" data-id="{{ post.id }}">Edit</button>
-                    </div>
-                {% else %}
-                    <div></div>
-                {% endif %}
-            </div>
-            
-            <div id="original-content-{{ post.id }}">{{ post.content }}</div>
-            <textarea id="edit-content-{{ post.id }}" style="display: none;">{{ post.content }}</textarea>
-            <button id="save-post-edit-{{ post.id }}" style="display: none;">Save</button>
-            <div>{{ post.created_at }}</div>
-            <div style="align-content: center;">
-                {% if user.is_authenticated %}
-                    <button class="like-post" data-id="{{ post.id }}" style="border: 0;">
-                        <span id="like-heart-{{ post.id }}">&#9825;</span>
-                    </button>
-                {% endif %}
-                <span id="like-count-{{ post.id }}" >{{ post.likes.count }}</span> Likes
+            <div class="post-outline">
+                <div class="post-header">
+                    <div><b>{{ post.author.username }}</b></div>
+                    {% if post.author.username == user.get_username %}
+                        <div>
+                            <button class="edit-post btn btn-primary btn-sm" data-id="{{ post.id }}">Edit</button>
+                        </div>
+                    {% else %}
+                        <div></div>
+                    {% endif %}
+                </div>
+                
+                <div id="original-content-{{ post.id }}">{{ post.content }}</div>
+                <textarea id="edit-content-{{ post.id }}" class="new-post-content" style="display: none;">{{ post.content }}</textarea>
+                <button id="save-post-edit-{{ post.id }}" class="btn btn-primary btn-sm" style="display: none;">Save</button>
+                <div class="create-time">{{ post.created_at }}</div>
+                <div class="likes">
+                    {% if user.is_authenticated %}
+                        <button class="like-post" data-id="{{ post.id }}" style="border: 0;">
+                            <span id="like-heart-{{ post.id }}">&#9825;</span>
+                        </button>
+                    {% endif %}
+                    <span id="like-count-{{ post.id }}" >{{ post.likes.count }}</span> Likes
+                </div>
             </div>
         {% empty %}
             <h3>User has no posts</h3>
@@ -61,13 +63,22 @@
 
     <div id="pagination">
         <span class="step-links">
-            {% if page_obj.has_previous %}
-                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-            {% endif %}
-
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">next</a>
-            {% endif %}
+            <div style="display: grid; grid-template-columns: auto auto; width: 50%;">
+                <div>
+                    {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-primary btn-sm">Previous</a>
+                    {% else %}
+                        <div></div>
+                    {% endif %}
+                </div>
+                <div style="justify-self: end;">
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}" class="btn btn-primary btn-sm" style="align-items: end;">Next</a>
+                    {% else %}
+                        <div></div>
+                    {% endif %}
+                </div>
+            </div>    
         </span>
     </div>
 {% endblock %}

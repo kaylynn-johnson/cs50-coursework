@@ -22,7 +22,7 @@
     <div id="posts">
         {% for post in posts %}
             <div class="post-outline">
-                <div style="display: grid; grid-template-columns: 300px auto;">
+                <div class="post-header">
                     <div><b><a href="{% url 'profile' post.author.username %}">{{ post.author.username }}</a></b></div>
                     {% if post.author.username == user.get_username %}
                         <div>
@@ -68,7 +68,6 @@
                         <div></div>
                     {% endif %}
                 </div>
-                
             </div>    
         </span>
     </div>
