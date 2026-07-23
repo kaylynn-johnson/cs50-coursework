@@ -53,13 +53,23 @@
 
     <div id="pagination">
         <span class="step-links">
-            {% if page_obj.has_previous %}
-                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-            {% endif %}
-
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">next</a>
-            {% endif %}
+            <div style="display: grid; grid-template-columns: auto auto; width: 50%;">
+                <div>
+                    {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-primary btn-sm">Previous</a>
+                    {% else %}
+                        <div></div>
+                    {% endif %}
+                </div>
+                <div style="justify-self: end;">
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}" class="btn btn-primary btn-sm" style="align-items: end;">Next</a>
+                    {% else %}
+                        <div></div>
+                    {% endif %}
+                </div>
+                
+            </div>    
         </span>
     </div>
 {% endblock %}
