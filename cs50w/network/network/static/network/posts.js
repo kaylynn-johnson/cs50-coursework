@@ -53,7 +53,7 @@ function create_post() {
 
 function submit_post() {
     // grab content text
-    const content = document.querySelector('#new-post-content').value;
+    const content = document.querySelector('#new-content').value;
 
     fetch('/post', {
         method: 'POST',
@@ -71,11 +71,12 @@ function submit_post() {
             alert(`Error: ${result.error}`);
         } else {
             console.log(result);
+            location.reload();
         }
     });
 
 
-    location.reload();
+    //location.reload();
 }
 
 // Edit post

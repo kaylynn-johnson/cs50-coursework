@@ -16,7 +16,7 @@
 
     {% if user.is_authenticated %}
         {% if username != user.get_username %}
-            <button id="follow" data-user-id="{{ profile_posts.0.author.username }}">Follow</button>
+            <button id="follow" data-user-id="{{ profile_posts.0.author.username }}" class="btn btn-primary">Follow</button>
         {% else %}
             <button id="create-post-btn" class="btn btn-primary">Create Post</button>
             <div id="create-post" style="display: none;">

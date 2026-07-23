@@ -43,4 +43,9 @@ h1 {
 #following {
     display: grid; 
     grid-template-columns: 100px auto;
+    margin: 5px;
+}
+
+#follow {
+    margin: 5px;
 }
