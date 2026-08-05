@@ -19,13 +19,23 @@ The standout feature is an automated fuel counting pipeline: at match start, a o
  
 Built to operate under real event conditions: loud environment, divided attention, no menu navigation during matches.
  
-### 🔄 CS50W — Web Programming with Python and JavaScript
-> *In Progress*
+### ✅ CS50W — Web Programming with Python and JavaScript
+> *Completed June 2026 to August 2026*
+
+Harvard's follow-on course focused on backend and frontend web development. Problem sets cover models, views, and templates in Django; JavaScript-driven frontend interactivity; and building, testing, and deploying full-stack web applications.
+
+**Topics covered:** Django, PostgreSQL, JavaScript, HTML/CSS, testing, CI/CD, scalability
+
+**Final Project — [StrideSync](https://github.com/kaylynn-johnson/stride-sync)**
+
+A full-stack cardio-playlist generator that matches songs to a user's running or walking pace, built with Django, PostgreSQL, and vanilla JavaScript. Users input a cardio pace, which is converted to a target BPM via cadence-matching, then used to filter a dataset of approximately 550,000 songs (sourced from Kaggle's Spotify audio features/metadata) by tempo, genre, decade, and popularity — all without a page reload.
+
+Playlists carry a fixed target tempo set at creation; adding a song outside that tempo range triggers a warning with an explicit override, keeping playlists musically coherent rather than just a running list of favorites. Playlists can be shared publicly via a unique link, with view/edit access controlled by ownership. The project is containerized with Docker.
+
+Built to explore the gap between "ops person who codes" and full-stack software engineering: real data modeling decisions and frontend/backend separation via a JSON API.
  
-Covers Django, JavaScript, and modern web application architecture.
- 
-### 🔄 CS50AI — Introduction to Artificial Intelligence with Python
-> *In Progress*
+### 🗓️ CS50AI — Introduction to Artificial Intelligence with Python
+> *Planned*
  
 Covers search algorithms, machine learning, neural networks, and NLP.
  
@@ -44,7 +54,7 @@ These courses complement the portfolio projects at [github.com/kaylynn-johnson](
 ```
 cs50-coursework/
 ├── cs50x/        # Introduction to Computer Science
-├── cs50w/        # Web Programming (in progress)
-└── cs50ai/       # AI with Python (in progress)
+├── cs50w/        # Web Programming
+└── cs50ai/       # AI with Python (planned)
 ```
  
