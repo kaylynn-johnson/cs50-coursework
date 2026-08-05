@@ -1,0 +1,13 @@
+{% extends "playlist/layout.html" %}
+{% load static %}
+
+{% block script %}
+    <script src="{% static 'playlist/playlists.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+    <h1>Public Playlists</h1>
+
+    <div id="all-playlists"></div>
+
+{% endblock %}
